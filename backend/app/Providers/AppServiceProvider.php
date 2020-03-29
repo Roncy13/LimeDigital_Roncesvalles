@@ -13,10 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Added make:repository in artisan
-        if ($this->app->environment() == 'local') {
-            $this->app->register('Kurt\Repoist\RepoistServiceProvider');
-        }
+        
     }
 
     /**

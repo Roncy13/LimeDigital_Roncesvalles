@@ -4,8 +4,68 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f1964e7c26329c9d52021218af1011e",
+    "content-hash": "c50e74e4fc8ad1be1737abfcb0c728a7",
     "packages": [
+        {
+            "name": "artogrig/laravel-make-service",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artogrig/laravel-make-service.git",
+                "reference": "d9aac007d6a86a73c4eed2449dbd6ffb0afae91d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artogrig/laravel-make-service/zipball/d9aac007d6a86a73c4eed2449dbd6ffb0afae91d",
+                "reference": "d9aac007d6a86a73c4eed2449dbd6ffb0afae91d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Artogrig\\LaravelMakeService\\LaravelMakeServiceServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelMakeService": "Artogrig\\LaravelMakeService\\Facades\\LaravelMakeService"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Artogrig\\LaravelMakeService\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Artavazd Grigoryan",
+                    "email": "artogrig@gmail.com"
+                }
+            ],
+            "description": "An Artisan console command to create service in your Laravel application.",
+            "homepage": "https://github.com/artogrig/laravel-make-service",
+            "keywords": [
+                "LaravelMakeService",
+                "artogrig",
+                "command",
+                "console",
+                "laravel",
+                "make",
+                "service"
+            ],
+            "time": "2018-05-18T10:46:23+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "1.3.0",
@@ -1765,6 +1825,55 @@
                 "serialize"
             ],
             "time": "2019-11-29T22:36:02+00:00"
+        },
+        {
+            "name": "ozankurt/repoist",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OzanKurt/Repoist.git",
+                "reference": "045c993ad60705fa98b07adedf4abb473ecb3daa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OzanKurt/Repoist/zipball/045c993ad60705fa98b07adedf4abb473ecb3daa",
+                "reference": "045c993ad60705fa98b07adedf4abb473ecb3daa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.6|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kurt\\Repoist\\RepoistServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kurt\\Repoist\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ozan Kurt",
+                    "email": "hello@ozankurt.com"
+                }
+            ],
+            "description": "Laravel ^5.6 repository generator.",
+            "keywords": [
+                "database",
+                "laravel",
+                "repoist",
+                "repository"
+            ],
+            "time": "2019-09-19T09:07:06+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4664,55 +4773,6 @@
                 "symfony"
             ],
             "time": "2019-03-07T21:35:13+00:00"
-        },
-        {
-            "name": "ozankurt/repoist",
-            "version": "3.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OzanKurt/Repoist.git",
-                "reference": "045c993ad60705fa98b07adedf4abb473ecb3daa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OzanKurt/Repoist/zipball/045c993ad60705fa98b07adedf4abb473ecb3daa",
-                "reference": "045c993ad60705fa98b07adedf4abb473ecb3daa",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^5.6|^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Kurt\\Repoist\\RepoistServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Kurt\\Repoist\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ozan Kurt",
-                    "email": "hello@ozankurt.com"
-                }
-            ],
-            "description": "Laravel ^5.6 repository generator.",
-            "keywords": [
-                "database",
-                "laravel",
-                "repoist",
-                "repository"
-            ],
-            "time": "2019-09-19T09:07:06+00:00"
         },
         {
             "name": "phar-io/manifest",

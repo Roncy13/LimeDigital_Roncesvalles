@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth; 
-use App\Post;
-use App\Repository\PostRepository;
-
+use App\Repositories\Contracts\PostRepository;
 class PostController extends Controller
 {
     private $repository;

@@ -7,9 +7,17 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Requests\User\UserRegister;
 use App\Utilities\StatusCodes;
+use App\Services\UserService;
+
 
 class UserController extends Controller {
     
+    private $service;
+
+    function __construct(UserService $service) {
+        $this->service = $service;
+    }
+
      /** 
      * login api 
      * 
@@ -40,13 +48,13 @@ class UserController extends Controller {
      */ 
     public function register(UserRegister $request) 
     { 
-        $input = $request->all(); 
-        $input['password'] = bcrypt($input['password']); 
-        $user = User::create($input); 
-        $success['token'] =  $user->createToken('MyApp')->accessToken; 
-        $success['name'] =  $user->name;
+        $payload = $request->all();
+        $result = $this->service->register($payload);
+        //$success['token'] =  $result->createToken('MyApp')->accessToken; 
+        //$success['name'] =  $result->name;
         $code = StatusCodes::UNAUTHORIZED;
-        return response()->json(['success'=> $success], $code); 
+
+        return response()->json(['success'=> $result], $code); 
     }
 /** 
      * details api 
