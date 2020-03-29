@@ -56,6 +56,7 @@ class CategoryPolicy
         }
 
         $hasPost = $this->postService->findByCtgry($category->id);
+
         // Checks if Category is being used
         if (count($hasPost) > 0) {
             return $this->deny("Category has been used, cannot be deleted...!");

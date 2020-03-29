@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('post', 'PostController@create');
 
     Route::prefix('category')->group(function() {
+        Route::get('', 'CategoryController@view');
         Route::post('', 'CategoryController@create');
         Route::put('/{id}', 'CategoryController@update');
         Route::delete('/{id}', 'CategoryController@destroy');

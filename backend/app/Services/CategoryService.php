@@ -12,6 +12,10 @@ class CategoryService
         return $user->categories()->create($payload);
     }
 
+    public function retrieveAll($id) {
+        return Category::where('user_id', $id)->get();
+    }
+
     public function update($payload, $categoryId) {
         $category = Category::find($categoryId);
         $category->description = $payload["description"];

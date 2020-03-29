@@ -23,6 +23,13 @@ class CategoryController extends Controller
         return response()->json(["data" => $result]);
     }
 
+    public function view(Request $request) {
+        $id = Auth::user()->id;
+        $result = $this->service->retrieveAll($id);
+        
+        return response()->json(["data" => $result]);
+    }
+
     public function update(Request $request, $id) {
         $payload = $request->all();
         $category = $this->setCategory($id);
