@@ -30,6 +30,10 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::put('/{id}', 'CategoryController@update');
         Route::delete('/{id}', 'CategoryController@destroy');
     });
+
+    Route::prefix('media')->group(function() {
+        Route::post('', 'MediaController@create');
+    });
 });
 
 Route::get('/post/sample', 'PostController@sample');
