@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     Route::prefix('media')->group(function() {
         Route::post('', 'MediaController@create');
+        Route::post('/{id}', 'MediaController@update');
     });
 });
 
