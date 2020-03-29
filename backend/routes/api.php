@@ -37,6 +37,13 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::post('/{id}', 'MediaController@update');
         Route::delete('/{id}', 'MediaController@destroy');
     });
+
+    Route::prefix('post')->group(function() {
+        //Route::get('', 'PostController@retrieve');
+        Route::post('', 'PostController@create');
+        //Route::post('/{id}', 'PostController@update');
+        //Route::delete('/{id}', 'PostController@destroy');
+    });
 });
 
 Route::get('/post/sample', 'PostController@sample');

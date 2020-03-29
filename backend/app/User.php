@@ -25,7 +25,7 @@ class User extends Authenticatable {
 
     public function post()
     {
-        return $this->hasMany('App\Modles\Post');
+        return $this->hasMany('App\Models\Post');
     }
 
     public function categories() {

@@ -8,9 +8,13 @@ class Post extends Model
 {
     //
     protected $table = 'post';
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'category_id'];
 
     public function users() {
         return $this->belongsTo("App/User");
+    }
+
+    public function media() {
+        return $this->hasMany("App\Models\PostMedia");
     }
 }

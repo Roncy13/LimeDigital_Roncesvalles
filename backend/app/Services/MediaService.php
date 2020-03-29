@@ -33,6 +33,10 @@ class MediaService
         return Media::find($id);
     }
 
+    public function findByIds($ids) {
+        return Media::whereIn('id', $ids)->get();;
+    }
+
     public function retrieveAll($user_id) {
         return Media::where('user_id', $user_id)->get();
     }
