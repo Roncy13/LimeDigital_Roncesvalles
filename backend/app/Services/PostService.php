@@ -22,7 +22,7 @@ class PostService
         return Post::find($id);
     }
 
-    private function createCategory($payload) {
+    private function setPost($payload) {
         $post = [];
         
         $post["title"] = $payload["title"];
@@ -34,15 +34,33 @@ class PostService
 
     public function create($payload, $user_id) {
         $user = User::find($user_id);
-        $post = $this->createCategory($payload);
+        $post = $this->setPost($payload);
         $result = $user->post()->create($post);
 
         if (isset($payload["media"]) && count($payload["media"]) > 0) {
             $medias = ($this->mediaSrv->findByIds($payload["media"]))->toArray();
             $fetchPost = $this->findById($result["id"]);
             $records = $fetchPost->media()->createMany($medias);
-            
+
             return ["post" => $result, "media" => $medias];
+        }
+
+        return $result;
+    }
+
+    public function update($payload, $id) {
+        $post = Post::find($id);
+        $post->title = $payload["title"];
+        $post->description = $payload["description"];
+        $post->category_id = $payload["category_id"];
+        $post->save();
+
+        if (isset($payload["media"]) && count($payload["media"]) > 0) {
+            $medias = ($this->mediaSrv->findByIds($payload["media"]))->toArray();
+            $post->media()->delete();
+            $records = $post->media()->createMany($medias);
+            
+            return ["post" => $post, "media" => $medias];
         }
 
         return $result;

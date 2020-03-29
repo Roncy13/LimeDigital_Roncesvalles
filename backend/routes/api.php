@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::prefix('post')->group(function() {
         //Route::get('', 'PostController@retrieve');
         Route::post('', 'PostController@create');
-        //Route::post('/{id}', 'PostController@update');
+        Route::put('/{id}', 'PostController@update');
         //Route::delete('/{id}', 'PostController@destroy');
     });
 });

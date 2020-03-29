@@ -33,21 +33,19 @@ class PostController extends Controller
     }
 
     private function setMedia($id, $user_id) {
-        $media = new Post();
-        $media->id = $id;
-        $media->user_id = $user_id;
+        $post = new Post();
+        $post->id = $id;
+        $post->user_id = $user_id;
 
-        return $media;
+        return $post;
     }
 
-    public function update(MediaCreate $request, $id) {
+    public function update(Request $request, $id) {
+        $payload = $request->only(["title", "description", "media", "category_id"]);
         $user_id = Auth::user()->id;
         $media = $this->setMedia($id, $user_id);
-
-        $this->authorize("update", $media);
-
-        $file = $request->file('photo') ? $request->file('photo') : $request->file('video');
-        $result = $this->service->update($file, $id, $user_id);
+        //$this->authorize("update", $media);
+        $result = $this->service->update($payload, $id);
 
         return response()->json(["data" => $result]);
     }
