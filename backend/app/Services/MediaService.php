@@ -7,8 +7,7 @@ use App\Models\Media;
 
 class MediaService
 {
-    //
-
+    
     public function create($file, $user_id) { 
         $name = $file->getClientOriginalName();
         $path = $file->store($user_id);
@@ -32,5 +31,13 @@ class MediaService
 
     public function findById($id) {
         return Media::find($id);
+    }
+
+    public function retrieveAll($user_id) {
+        return Media::where('user_id', $user_id)->get();
+    }
+
+    public function destroy($id) {
+        return Media::destroy($id);
     }
 }

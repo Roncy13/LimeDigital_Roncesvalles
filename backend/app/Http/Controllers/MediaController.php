@@ -18,6 +18,13 @@ class MediaController extends Controller
         $this->service = $service;
     }
 
+    public function retrieve() {
+        $id = Auth::user()->id;
+        $result = $this->service->retrieveAll($id);
+
+        return response()->json(["data" => $result]);    
+    }
+
     public function create(MediaCreate $request) {
         $file = $request->file('photo') ? $request->file('photo') : $request->file('video');
         $id = Auth::user()->id;
@@ -44,5 +51,16 @@ class MediaController extends Controller
         $result = $this->service->update($file, $id, $user_id);
 
         return response()->json(["data" => $result]);
+    }
+
+    public function destroy(Request $request, $id) {
+        $user_id = Auth::user()->id;
+        $media = $this->setMedia($id, $user_id);
+
+        $this->authorize("destroy", $media);
+
+        $result = $this->service->destroy($id);
+
+        return response()->json(["data" => $result]);    
     }
 }

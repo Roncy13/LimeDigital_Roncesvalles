@@ -32,8 +32,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     });
 
     Route::prefix('media')->group(function() {
+        Route::get('', 'MediaController@retrieve');
         Route::post('', 'MediaController@create');
         Route::post('/{id}', 'MediaController@update');
+        Route::delete('/{id}', 'MediaController@destroy');
     });
 });
 
