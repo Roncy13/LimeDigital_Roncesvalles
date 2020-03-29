@@ -23,6 +23,11 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('details', 'UserController@details');
     Route::post('check-policy', 'UserController@checkPolicy');
     Route::post('post', 'PostController@create');
+
+    Route::prefix('category')->group(function() {
+        Route::post('', 'CategoryController@create');
+        Route::put('/{id}', 'CategoryController@update');
+    });
 });
 
 Route::get('/post/sample', 'PostController@sample');

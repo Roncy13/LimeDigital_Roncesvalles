@@ -12,4 +12,8 @@ class UserService
         
         return $input;
     }
+
+    public function login($payload) {
+
+    }
 }

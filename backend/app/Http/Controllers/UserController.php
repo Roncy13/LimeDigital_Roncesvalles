@@ -50,11 +50,11 @@ class UserController extends Controller {
     { 
         $payload = $request->all();
         $result = $this->service->register($payload);
-        //$success['token'] =  $result->createToken('MyApp')->accessToken; 
-        //$success['name'] =  $result->name;
+        $success['token'] =  $result->createToken('MyApp')->accessToken; 
+        $success['name'] =  $result->name;
         $code = StatusCodes::UNAUTHORIZED;
 
-        return response()->json(['success'=> $result], $code); 
+        return response()->json(['success'=> $success], $code); 
     }
 /** 
      * details api 
@@ -63,17 +63,7 @@ class UserController extends Controller {
      */ 
     public function details() 
     { 
-        $user = Auth::user(); 
+        $user = Auth::user();
         return response()->json(['success' => $user], StatusCodes::SUCCESS); 
-    } 
-
-    public function checkPolicy() {
-        $User = new User();
-
-        $record = $User->find(1);
-
-        $checkPolicy = $User->checkPolicy();
-
-        return response()->json(['sample' => $checkPolicy], StatusCodes::SUCCESS); 
     }
 }
