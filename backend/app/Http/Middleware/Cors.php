@@ -19,6 +19,7 @@ class Cors
         $possibleOrigins = [
             'http://165.22.101.69',
             'https://165.22.101.69',
+            'http://180.191.184.38'
         ];
         $origin = $_SERVER['HTTP_ORIGIN'];
 
