@@ -25,13 +25,26 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id) {
         $payload = $request->all();
-      
-        $category = new Category();
-        $category->id = $id;
-
+        $category = $this->setCategory($id);
         $this->authorize("update", $category);
         $result = $this->service->update($payload, $id);
 
         return response()->json(["data" => $result]);
+    }
+
+    public function destroy(Request $request, $id) {
+        $payload = $request->all();
+        $category = $this->setCategory($id);
+        $this->authorize("destroy", $category);
+        $result = $this->service->destroy($payload, $id);
+
+        return response()->json(["data" => $result]);
+    }
+
+    private function setCategory($id) : Category {
+        $category = new Category();
+        $category->id = $id;
+
+        return $category;
     }
 }

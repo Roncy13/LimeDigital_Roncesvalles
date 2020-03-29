@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::prefix('category')->group(function() {
         Route::post('', 'CategoryController@create');
         Route::put('/{id}', 'CategoryController@update');
+        Route::delete('/{id}', 'CategoryController@destroy');
     });
 });
 
