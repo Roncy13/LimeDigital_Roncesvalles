@@ -31,4 +31,8 @@ class User extends Authenticatable {
     public function categories() {
         return $this->hasMany('App\Models\Category');
     }
+
+    public function media() {
+        return $this->hasMany('App\Models\Media');
+    }
 }

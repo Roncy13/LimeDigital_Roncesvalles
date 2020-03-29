@@ -3,10 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
+use App\Utilities\StatusCodes;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Validation\ValidationException;
-use App\Utilities\StatusCodes;
 
 class Handler extends ExceptionHandler
 {
@@ -76,8 +77,8 @@ class Handler extends ExceptionHandler
             , $statusCode); 
             //
         }
-
-
+        
+        
         return response()->json(
             [
                 'message' => $exception->getMessage(),

@@ -26,8 +26,8 @@ class MediaCreate extends FormRequest
         return [
             'video' => [
                 'required_without:photo',
-                'mimetypes:video/mpeg,video/quicktime,video/3gp,video/mov',
-                'max:8192'
+                'mimetypes: mimetypes:video/avi,video/mpeg,video/quicktime',
+                'max:250000'
             ],
             'photo' => [
                 'required_without:video',
