@@ -78,7 +78,6 @@ class Handler extends ExceptionHandler
             //
         }
         
-        
         return response()->json(
             [
                 'message' => $exception->getMessage(),

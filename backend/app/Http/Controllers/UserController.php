@@ -1,13 +1,14 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Http\Request; 
-use App\Http\Controllers\Controller; 
 use App\User; 
-use Illuminate\Support\Facades\Auth; 
 use Validator;
-use App\Http\Requests\User\UserRegister;
-use App\Utilities\StatusCodes;
 use App\Services\UserService;
+use Illuminate\Http\Request; 
+use App\Utilities\StatusCodes;
+use App\Http\Controllers\Controller; 
+use App\Http\Requests\User\UserLogin;
+use Illuminate\Support\Facades\Auth; 
+use App\Http\Requests\User\UserRegister;
 
 
 class UserController extends Controller {
@@ -31,7 +32,7 @@ class UserController extends Controller {
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function login(){ 
+    public function login(UserLogin $request){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->accessToken; 
