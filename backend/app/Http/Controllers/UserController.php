@@ -35,10 +35,10 @@ class UserController extends Controller {
     public function login(UserLogin $request){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')->accessToken; 
-            return response()->json(['success' => $success], StatusCodes::SUCCESS); 
+            $token = $user->createToken('MyApp')->accessToken; 
+            return $this->response($token, "Your Login is Successfull...!");
         } 
-        else{ 
+        else { 
             return response()->json(['message'=>'Incorrect Credentials...!'], StatusCodes::NOT_FOUND); 
         } 
     }
