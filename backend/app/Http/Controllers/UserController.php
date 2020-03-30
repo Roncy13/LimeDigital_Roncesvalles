@@ -38,7 +38,7 @@ class UserController extends Controller {
             return response()->json(['success' => $success], StatusCodes::SUCCESS); 
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], StatusCodes::UNAUTHORIZED); 
+            return response()->json(['message'=>'Incorrect Credentials...!'], StatusCodes::NOT_FOUND); 
         } 
     }
 /** 

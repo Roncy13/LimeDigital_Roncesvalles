@@ -12,6 +12,6 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function response($data, $message, $statusCode = 200) {
-        return response()->statusCode($statusCode)->json(["data" => $result, "message" => $message]);
+        return response()->json(["data" => $data, "message" => $message], $statusCode);
     }
 }

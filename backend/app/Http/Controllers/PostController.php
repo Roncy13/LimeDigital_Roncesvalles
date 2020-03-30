@@ -21,7 +21,7 @@ class PostController extends Controller
         $id = Auth::user()->id;
         $result = $this->service->retrieveAll($id);
 
-        return response()->json(["data" => $result]);    
+        return $this->response($result, "Your List of Post...!");   
     }
 
     public function create(Request $request) {
@@ -29,7 +29,7 @@ class PostController extends Controller
         $id = Auth::user()->id;
         $result = $this->service->create($payload, $id);
 
-        return response()->json(["data" => $result]);
+        return $this->response($result, "Your Post has been created Successfully...!"); 
     }
 
     private function setMedia($id, $user_id) {
@@ -47,7 +47,7 @@ class PostController extends Controller
         //$this->authorize("update", $media);
         $result = $this->service->update($payload, $id);
 
-        return response()->json(["data" => $result]);
+        return $this->response($result, "Your Post has been updated Successfully...!");    
     }
 
     public function destroy(Request $request, $id) {
@@ -58,6 +58,14 @@ class PostController extends Controller
 
         $result = $this->service->destroy($id);
 
-        return response()->json(["data" => $result]);    
+        return $this->response($result, "Your Post has been deleted Successfully...!");    
+    }
+
+    public function sample(Request $request) {
+        $result = [ 
+            "data" => "sample"
+        ];
+
+        return $this->response($result, "Sample");
     }
 }

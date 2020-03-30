@@ -14,7 +14,7 @@ class Post extends Model
         return $this->belongsTo("App/User");
     }
 
-    public function media() {
-        return $this->hasMany("App\Models\PostMedia");
+    public function postMedia() {
+        return $this->hasMany("App\Models\PostMedia", "post_id");
     }
 }

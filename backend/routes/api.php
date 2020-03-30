@@ -39,10 +39,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     });
 
     Route::prefix('post')->group(function() {
-        //Route::get('', 'PostController@retrieve');
+        Route::get('', 'PostController@retrieve');
         Route::post('', 'PostController@create');
         Route::put('/{id}', 'PostController@update');
-        //Route::delete('/{id}', 'PostController@destroy');
+        Route::delete('/{id}', 'PostController@destroy');
     });
 });
 

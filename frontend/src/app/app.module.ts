@@ -7,7 +7,8 @@ import { HeaderModule } from './header/header.module';
 import { TabsModule } from './tabs/tabs.module';
 import { ToastrModule } from "ngx-toastr";
 import { HttpClientModule } from '@angular/common/http'; 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
 @NgModule({
   declarations: [
     AppComponent
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HeaderModule,
     TabsModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-right",
       preventDuplicates: true

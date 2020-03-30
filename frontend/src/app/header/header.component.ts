@@ -35,8 +35,9 @@ export class HeaderComponent implements OnInit {
   checkCredentials(username: string, password: string) {
     const result = this.headerSrv.signIn(username, password).toPromise();
 
-
-    result.then(row => console.log(row));
+    result
+      .then(row => console.log(row))
+      .catch(this.headerSrv.checkError)
   }
 
 }

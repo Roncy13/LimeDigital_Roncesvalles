@@ -27,7 +27,7 @@ class CategoryController extends Controller
         $id = Auth::user()->id;
         $result = $this->service->retrieveAll($id);
         
-        return response()->json(["data" => $result]);
+        return $this->response($result, "List of your Categories...!"); 
     }
 
     public function update(Request $request, $id) {
@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $this->authorize("update", $category);
         $result = $this->service->update($payload, $id);
 
-        return response()->json(["data" => $result]);
+        return $this->response($result, "Category has been updated Successfully...!"); 
     }
 
     public function destroy(Request $request, $id) {
@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $this->authorize("destroy", $category);
         $result = $this->service->destroy($payload, $id);
 
-        return response()->json(["data" => $result]);
+        return $this->response($result, "Category has been deleted Successfully...!");
     }
 
     private function setCategory($id) : Category {

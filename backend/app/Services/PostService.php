@@ -5,7 +5,7 @@ namespace App\Services;
 use App\User;
 use App\Models\Post;
 use App\Services\MediaService;
-
+use App\Models\PostMedia;
 class PostService
 {
     private $mediaSrv;
@@ -64,5 +64,18 @@ class PostService
         }
 
         return $result;
+    }
+
+    public function destroy($id) {
+        $post = $this->findById($id);
+        $post->media()->destroy();
+
+        return Post::destroy($id);
+    }
+
+    public function retrieveAll($user_id) {
+        $post = Post::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+
+        return $post->load('postMedia');
     }
 }

@@ -23,7 +23,9 @@ export const YesNo = Swal.mixin({
 export class Service {
   public url: string = environment.url;
 
-  constructor(private toast: ToastrService, private http: HttpClient) {}
+  constructor(private toast: ToastrService, private http: HttpClient) {
+    this.checkError = this.checkError.bind(this);
+  }
 
   getRealValues(params) {
     return pickBy(params, identity);
@@ -130,7 +132,12 @@ export class Service {
       localStorage.clear();
 
       setTimeout(() => location.replace("/"), 1500);
-    } else {
+    }  else if (err.status === 404) {
+      const { message = "" } = err.error; 
+
+      this.toast.error(message);
+    }
+      else {
       this.toast.error("Error in Server");
       /*if (message === "") {
         this.toast.warning(
@@ -159,15 +166,15 @@ export class CheckError {
 
       if (constraints !== undefined) {
         errorMsg = constraints[Object.keys(constraints)[0]];
-        this.toast.warning(errorMsg.replace(property, startCase(property)));
+        //this.toast.warning(errorMsg.replace(property, startCase(property)));
       } else if (children !== undefined) {
         const { constraints: childrenConstraints } = children[0];
         errorMsg = childrenConstraints[Object.keys(childrenConstraints)[0]];
-        this.toast.warning(upperFirst(errorMsg));
+        //this.toast.warning(upperFirst(errorMsg));
       }
     } else if (err.status === 401) {
       this.toast.warning(`Your Session has been Expired...!`);
-      REMOVE_STORAGE();
+      //REMOVE_STORAGE();
 
       setTimeout(() => location.replace("/"), 1500);
     } else {
