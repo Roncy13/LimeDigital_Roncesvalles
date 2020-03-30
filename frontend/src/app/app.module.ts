@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './header/header.module';
 import { TabsModule } from './tabs/tabs.module';
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,11 @@ import { TabsModule } from './tabs/tabs.module';
     BrowserModule,
     AppRoutingModule,
     HeaderModule,
-    TabsModule
+    TabsModule,
+    ToastrModule.forRoot({
+      positionClass: "toast-top-right",
+      preventDuplicates: true
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
