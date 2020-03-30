@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 })
 export class CategoryComponent implements OnInit {
 
+  cars = [];
+
   constructor(private service: CategoryService) { }
 
   ngOnInit() {
@@ -21,7 +23,7 @@ export class CategoryComponent implements OnInit {
     const result = this.service.all().toPromise();
 
     result.then(
-      row => console.log(row)
+      row => this.cars = row.data
     )
     .catch(this.service.checkError)
     .finally(this.service.finally)

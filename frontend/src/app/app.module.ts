@@ -11,7 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostModule } from './pages/post/post.module';
 import { MediaModule } from './pages/media/media.module';
 import { CategoryModule } from './pages/category/category.module';
- 
+import { AgGridModule } from 'ag-grid-angular';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,6 +23,7 @@ import { CategoryModule } from './pages/category/category.module';
     HeaderModule,
     TabsModule,
     PostModule,
+    AgGridModule.withComponents([]),
     MediaModule,
     CategoryModule,
     BrowserAnimationsModule,
@@ -29,7 +31,7 @@ import { CategoryModule } from './pages/category/category.module';
       positionClass: "toast-top-right",
       preventDuplicates: true
     }),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
