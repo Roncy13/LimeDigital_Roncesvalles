@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post.component.sass']
 })
 export class PostComponent implements OnInit {
-
-  constructor() { }
+  constructor() {
+    alert("post");
+  }
 
   ngOnInit() {
   }
-
 }

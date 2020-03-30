@@ -2,20 +2,28 @@ import Swal from 'sweetalert2';
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { pickBy, identity, isEmpty } from "lodash";
+import { pickBy, identity, isEmpty, first } from "lodash";
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+
 
 export const token = 'token';
 
 export const YesNo = Swal.mixin({
-  
   confirmButtonText: 'Ok',
   cancelButtonText: 'Cancel',
   showCancelButton: true,
   confirmButtonColor: "#5cb85c",
   cancelButtonColor: "#d9534f"
 });
+
+export const DelayRequest = (fn : Function) => 
+  setTimeout(() => { 
+    Swal.showLoading();
+    fn() 
+  }, 1000);
+
+export const IsLoggedIn = () => isEmpty(localStorage.getItem(token));
 
 @Injectable({
   providedIn: "root"
@@ -75,6 +83,9 @@ export class Service {
       this.generateHeaders()
     );
   }
+  public finally() {
+    Swal.close();
+  }
 
   public patch<T>(route: string, body) {
     body = { ...body, ...this.getToken() };
@@ -111,23 +122,7 @@ export class Service {
   }
 
   checkError(err, message = "") {
-    if (err.status === 400 && err.error.message.length > 0) {
-      const { message } = err.error,
-        { constraints, property, children } = message[0];
-
-      let errorMsg;
-
-      if (constraints !== undefined) {
-        errorMsg = constraints[Object.keys(constraints)[0]];
-        this.toast.warning("warning 400");
-        //this.toast.warning(errorMsg.replace(property, startCase(property)));
-      } else if (children !== undefined) {
-        const { constraints: childrenConstraints } = children[0];
-        errorMsg = childrenConstraints[Object.keys(childrenConstraints)[0]];
-        this.toast.warning("warning 400");
-        //this.toast.warning(upperFirst(errorMsg));
-      }
-    } else if (err.status === 401) {
+    if (err.status === 401) {
       this.toast.warning(`Your Session has been Expired...!`);
       localStorage.clear();
 
@@ -136,23 +131,23 @@ export class Service {
       const { message = "" } = err.error; 
 
       this.toast.error(message);
-    }
-      else {
-      this.toast.error("Error in Server");
-      /*if (message === "") {
-        this.toast.warning(
-          `Cannot proceed to your following request, Pls Contact IT Support for Assistance`
-        );
-      } else {
-        this.toast.warning(
-          `Cannot proceed with the ${message}, Pls Contact IT Support for Assistance`
-        );
-      }*/
+    } else if (err.status === 422) {
+      const { message = "", errors = {} } = err.error; 
+
+      const errorKeys = Object.keys(errors),
+        firstErrKey = first(errorKeys),
+        firtErrMsg = first(errors[firstErrKey])
+
+      console.log(firstErrKey);
+
+      this.toast.error(firtErrMsg);
+      this.toast.error(message);
+    } else {
+      this.toast.error("Cannot Process Request, Please Email JamesRoncy13@gmail.com for the incident happpend...!");
     }
   }
 
 }
-
 
 export class CheckError {
   constructor(private toast: ToastrService) {}

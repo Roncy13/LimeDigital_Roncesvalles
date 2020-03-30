@@ -8,6 +8,9 @@ import { TabsModule } from './tabs/tabs.module';
 import { ToastrModule } from "ngx-toastr";
 import { HttpClientModule } from '@angular/common/http'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PostModule } from './pages/post/post.module';
+import { MediaModule } from './pages/media/media.module';
+import { CategoryModule } from './pages/category/category.module';
  
 @NgModule({
   declarations: [
@@ -18,6 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HeaderModule,
     TabsModule,
+    PostModule,
+    MediaModule,
+    CategoryModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-right",

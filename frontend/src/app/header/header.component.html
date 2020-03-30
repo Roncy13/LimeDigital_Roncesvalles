@@ -38,11 +38,15 @@
 
       <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
         <li class="nav-item dropdown hidden-float">
-          <a href="javascript:void(0)" (click)="signIn()" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
-            <i class="zmdi zmdi-hc-lg zmdi-sign-in"></i>
-          </a>
+            <a *ngIf="showMenu" href="javascript:void(0)" (click)="signIn()" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
+              <i class="zmdi zmdi-hc-lg zmdi-mail-send"></i>
+            </a>
+            <a *ngIf="!showMenu" href="javascript:void(0)" (click)="signOut()" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
+              <i class="zmdi zmdi-hc-lg zmdi-mail-reply"></i>
+            </a>
         </li>
       </ul>
     </div>
   </div><!-- navbar-container -->
 </nav>
+
