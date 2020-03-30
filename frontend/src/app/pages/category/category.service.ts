@@ -14,6 +14,10 @@ export class CategoryService extends Service {
   }
 
   all() {
-    return this.getDataWithParam('category')
+    return this.getDataWithParam('category');
+  }
+
+  create(payload) {
+    return this.post('category', payload);
   }
 }

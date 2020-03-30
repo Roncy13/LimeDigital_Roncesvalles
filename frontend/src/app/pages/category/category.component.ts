@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { CategoryService } from './category.service';
 import Swal from 'sweetalert2';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { DelayRequest } from '../../utitlities/constants';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -9,13 +14,31 @@ import Swal from 'sweetalert2';
 })
 export class CategoryComponent implements OnInit {
 
-  cars = [];
+  categories = [];
+  form = {
+    name: "",
+    animal: ""
+  }
+  change: Subject<boolean> = new Subject();
 
-  constructor(private service: CategoryService) { }
+  constructor(private service: CategoryService, public dialog: MatDialog) { }
 
   ngOnInit() {
 
     this.fetchCategories();
+
+    this.change.subscribe(row => {
+      if (row) {
+        this.fetchCategories();
+      }
+    })
+  }
+
+  resetForm() {
+    this.form = {
+      name: "",
+      animal: ""
+    };
   }
 
   fetchCategories() {
@@ -23,9 +46,66 @@ export class CategoryComponent implements OnInit {
     const result = this.service.all().toPromise();
 
     result.then(
-      row => this.cars = row.data
+      row => this.categories = row.data
     )
     .catch(this.service.checkError)
     .finally(this.service.finally)
+  }
+
+  add() {
+    this.resetForm();
+
+    this.dialog.open(DialogOverviewExampleDialog, {
+      width: '50%',
+      data: { change: this.change }
+    });
+  }
+}
+
+@Component({
+  selector: 'category-add',
+  templateUrl: 'dialogs/add.html',
+})
+export class DialogOverviewExampleDialog {
+
+  form: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data,
+    public fb: FormBuilder,
+    private toast: ToastrService,
+    private service: CategoryService) {
+      this.add = this.add.bind(this);
+      this.setForm();
+    }
+  
+  setForm() {
+    this.form = this.fb.group({
+      description: ["", Validators.required]
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  saveForm() {
+    const { value } = this.form;
+
+    DelayRequest(() => this.add(value));
+  }
+
+  add(payload) {
+    const result = this.service.create(payload).toPromise();
+
+      result
+        .then(({message}) => {
+          this.onNoClick();
+          this.toast.success(message);
+          this.data.change.next(true);
+        })
+        .catch(this.service.checkError)
+        .finally(this.service.finally);
   }
 }

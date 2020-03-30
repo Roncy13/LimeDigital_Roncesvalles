@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CategoryComponent } from './category.component';
+import { CategoryComponent, DialogOverviewExampleDialog } from './category.component';
 import { CategoryRoutingModule } from './category.routing.module';
+import { PageModule } from '../../utitlities/page.module';
 import { AgGridModule } from 'ag-grid-angular';
-import {TableModule} from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [CategoryComponent],
+  entryComponents: [DialogOverviewExampleDialog],
+  declarations: [CategoryComponent, DialogOverviewExampleDialog],
   imports: [
     CommonModule,
     CategoryRoutingModule,
     AgGridModule.withComponents([]),
-    TableModule
+    PageModule,
   ]
 })
 export class CategoryModule { }
