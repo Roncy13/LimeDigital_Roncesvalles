@@ -24,4 +24,8 @@ export class CategoryService extends Service {
   update(payload, id) {
     return this.put(`category/${id}`, payload);
   }
+
+  destroy(id) {
+    return this.delete(`category/${id}`);
+  }
 }

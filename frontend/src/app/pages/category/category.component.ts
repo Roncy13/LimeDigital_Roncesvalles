@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { DelayRequest, BUTTON } from '../../utitlities/constants';
+import { DelayRequest, BUTTON, YesNo } from '../../utitlities/constants';
 import { Subject } from 'rxjs';
 
 
@@ -22,7 +22,12 @@ export class CategoryComponent implements OnInit {
   }
   change: Subject<boolean> = new Subject();
 
-  constructor(private service: CategoryService, public dialog: MatDialog) { }
+  constructor(
+    private toastr: ToastrService,
+    private service: CategoryService, 
+    public dialog: MatDialog) {
+      this.destroy = this.destroy.bind(this);
+  }
 
   ngOnInit() {
 
@@ -70,7 +75,28 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(data) {
+    YesNo.fire({
+      title: "Confirmation",
+      icon: "info",
+      text: `Are you sure to delete ${data.description} ?`
+    }).then(res => {
+      if (res.value) {
+        DelayRequest(() => this.destroy(data.id));
+      }
+    })
+  }
 
+  destroy(id) {
+    const result = this.service.destroy(id).toPromise();
+
+    result.then(
+      ({message}) => this.toastr.success(message)
+    )
+    .catch(this.service.checkError)
+    .finally(() => {
+      this.service.finally();
+      this.fetchCategories();
+    })
   }
 }
 
