@@ -1,0 +1,19 @@
+$color-white:rgb(255, 255, 255);
+
+.navbar {
+    border: none;
+    opacity: 100% !important;
+    transition: opacity 0.5s;
+    color: $color-white
+}
+
+.navbar-brand .brand-name {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: $color-white
+}
+
+.fa-gg:before {
+    content: "\f260" !important;
+    color: $color-white !important;
+}
