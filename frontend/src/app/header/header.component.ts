@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { YesNo } from '../utitlities/constants';
+import { HeaderService } from './header.service';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { YesNo } from '../utitlities/constants';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private headerSrv: HeaderService) { }
 
   ngOnInit() {
   }
@@ -22,14 +23,20 @@ export class HeaderComponent implements OnInit {
         '<input class = "form-control mt-2" type = "password" id = "password" placeholder="Password">',
       icon: 'info'
     }).then(result => {
+      if (result.value) {
+        const username = (document.getElementById("username") as any).value,
+          password = (document.getElementById("password") as any).value;
 
-      console.log(result);
-      const username = (document.getElementById("username") as any).value,
-        password = (document.getElementById("password") as any).value;
-
-      console.log({ username, password });
-
+        this.checkCredentials(username, password);
+      }
     });
+  }
+
+  checkCredentials(username: string, password: string) {
+    const result = this.headerSrv.signIn(username, password).toPromise();
+
+
+    result.then(row => console.log(row));
   }
 
 }

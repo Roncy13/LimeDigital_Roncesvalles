@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   ngOnInit() {
-    axios.get(`${environment.url}/api/post/sample`).then(row => console.log(row));
+    axios.get(`${environment.url}/post/sample`).then(row => console.log(row));
   }
 }

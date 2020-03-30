@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderModule } from './header/header.module';
 import { TabsModule } from './tabs/tabs.module';
 import { ToastrModule } from "ngx-toastr";
+import { HttpClientModule } from '@angular/common/http'; 
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ToastrModule } from "ngx-toastr";
       positionClass: "toast-top-right",
       preventDuplicates: true
     }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
