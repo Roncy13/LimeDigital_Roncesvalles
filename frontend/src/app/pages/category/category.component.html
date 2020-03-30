@@ -19,6 +19,7 @@
             <th>Description</th>
             <th>Date Created</th>
             <th>Date Updated</th>
+            <th>Action</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-cat>
@@ -26,6 +27,10 @@
             <td>{{cat.description}}</td>
             <td>{{cat.created_at}}</td>
             <td>{{cat.updated_at}}</td>
+            <td>
+              <button class = "btn btn-info btn-md" (click)="edit(cat)">Edit</button>
+              <button class = "btn btn-danger btn-md" (click)="delete(cat)">Delete</button>
+            </td>
         </tr>
     </ng-template>
   </p-table>

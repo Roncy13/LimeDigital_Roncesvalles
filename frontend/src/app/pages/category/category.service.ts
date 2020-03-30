@@ -20,4 +20,8 @@ export class CategoryService extends Service {
   create(payload) {
     return this.post('category', payload);
   }
+
+  update(payload, id) {
+    return this.put(`category/${id}`, payload);
+  }
 }

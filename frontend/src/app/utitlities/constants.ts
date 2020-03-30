@@ -17,6 +17,11 @@ export const YesNo = Swal.mixin({
   cancelButtonColor: "#d9534f"
 });
 
+export enum BUTTON {
+  Add = 'Add',
+  Edit = 'Edit',
+}
+
 export const DelayRequest = (fn : Function) => 
   setTimeout(() => { 
     Swal.showLoading();

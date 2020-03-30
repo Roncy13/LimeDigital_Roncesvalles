@@ -4,8 +4,9 @@ import Swal from 'sweetalert2';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { DelayRequest } from '../../utitlities/constants';
+import { DelayRequest, BUTTON } from '../../utitlities/constants';
 import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-category',
@@ -57,8 +58,19 @@ export class CategoryComponent implements OnInit {
 
     this.dialog.open(DialogOverviewExampleDialog, {
       width: '50%',
-      data: { change: this.change }
+      data: { change: this.change, form: {} }
     });
+  }
+
+  edit(data) {
+    this.dialog.open(DialogOverviewExampleDialog, {
+      width: '50%',
+      data: { change: this.change, form: data }
+    });
+  }
+
+  delete(data) {
+
   }
 }
 
@@ -69,6 +81,7 @@ export class CategoryComponent implements OnInit {
 export class DialogOverviewExampleDialog {
 
   form: FormGroup;
+  saveButton: any = BUTTON.Add;
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
@@ -76,9 +89,25 @@ export class DialogOverviewExampleDialog {
     public fb: FormBuilder,
     private toast: ToastrService,
     private service: CategoryService) {
-      this.add = this.add.bind(this);
+      this.save = this.save.bind(this);
       this.setForm();
+      this.setData();
     }
+
+  checkForm(): Boolean {
+    return Object.keys(this.data.form).length > 0;
+  }
+    
+  setData(): void {
+    if (this.checkForm) {
+      const { description } = this.data.form;
+
+      this.form.setValue({
+        description
+      });
+      this.saveButton = BUTTON.Edit;
+    }
+  }
   
   setForm() {
     this.form = this.fb.group({
@@ -93,11 +122,11 @@ export class DialogOverviewExampleDialog {
   saveForm() {
     const { value } = this.form;
 
-    DelayRequest(() => this.add(value));
+    DelayRequest(() => this.save(value, this.data.form));
   }
 
-  add(payload) {
-    const result = this.service.create(payload).toPromise();
+  save(payload, form) {
+    const result = !this.checkForm() ? this.service.create(payload).toPromise() : this.service.update(payload, form.id).toPromise();
 
       result
         .then(({message}) => {
