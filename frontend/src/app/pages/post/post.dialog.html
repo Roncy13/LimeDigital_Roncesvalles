@@ -22,7 +22,12 @@
       </div>
       <div class="form-group">
         <label for="add_media">Add Media</label>
-        <input [(ngModel)]="file" [ngModelOptions]="{standalone: true}" (change)="handleFileInput($event.target.files)" type="file" accept="video/*,image/*" class="form-control" id="add_media">
+        <input [(ngModel)]="file" [ngModelOptions]="{standalone: true}" (change)="handleFileInput($event.target.files)" type="file" accept="video/*,image/*" class="form-control" id="add_media"/>
+      </div>
+
+      <div class="form-group">
+        <label for="select_media">Select Media</label><br/>
+        <button type = "button" (click)="selectMedia()" class="btn btn-info btn-md" id="select_media">Choose</button>
       </div>
 
       <div class="form-group">

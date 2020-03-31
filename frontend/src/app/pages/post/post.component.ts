@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { PopUpImageComponent } from '../../utitlities/dialog/pop-up-image.component';
 import { pullAt } from 'lodash';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-post',
@@ -32,6 +33,8 @@ export class PostComponent implements OnInit {
       data: { change: this.change, form: {} }
     });
   }
+
+
 }
 
 @Component({
@@ -44,7 +47,9 @@ export class PostDialog {
   saveButton: any = BUTTON.Add;
   fileToUpload: File = null;
   file: string;
-  medias: [];
+  medias: [] = [];
+  change: Subject<[]> = new Subject();
+
   constructor(
     public dialogRef: MatDialogRef<PostDialog>,
     private dialog: MatDialog,
@@ -58,7 +63,20 @@ export class PostDialog {
       this.saveMedia = this.saveMedia.bind(this);
       this.setForm();
       this.setData();
+
+      this.setSelectedMedia();
     }
+
+  setSelectedMedia() {
+    this.change.subscribe(row => {
+      if (row) {
+        this.medias = [...this.medias, ...row] as [];
+        this.form.patchValue({
+          media: this.medias
+        });
+      }
+    })
+  }
 
   checkForm(): Boolean {
     return Object.keys(this.data.form).length > 0;
@@ -114,6 +132,17 @@ export class PostDialog {
 
     DelayRequest(() => this.saveFile(formData, this.data.form));
   }
+
+  selectMedia() {
+  
+    this.dialog.open(MediaList, {
+      width: "80%",
+      height: "100%",
+      data: {
+        change: this.change
+      }
+    });
+  }
   
   view(item) {
     const link = `${environment.media}${item.path}`;
@@ -136,7 +165,7 @@ export class PostDialog {
     }).then(res => {
       if (res.value) {
         let media = this.form.controls['media'].value;
-        
+
         pullAt(media,[i]);
         this.form.patchValue({
           media
@@ -163,4 +192,49 @@ export class PostDialog {
         .catch(this.mediaSrv.checkError)
         .finally(this.mediaSrv.finally);
   }
+}
+
+
+@Component({
+  selector: 'media-list',
+  templateUrl: './show.media.html',
+})
+
+export class MediaList implements OnInit {
+
+  selected = [];
+  medias = [];
+
+  constructor(
+    public dialogRef: MatDialogRef<MediaList>,
+    @Inject(MAT_DIALOG_DATA) public data,
+    public fb: FormBuilder,
+    private toastr: ToastrService,
+    private mediaSrv: MediaService) {}
+    
+    ngOnInit() {
+      Swal.showLoading();
+      const result = this.mediaSrv.all().toPromise();
+
+      result
+        .then(({data}) => this.medias = data.map(row => ({...row, selected: false})))
+        .catch(this.mediaSrv.checkError)
+        .finally(this.mediaSrv.finally)
+    }
+
+    save() {
+      const selected = this.medias.filter(row => row.selected) || [];
+
+      if (selected.length === 0) {
+        this.toastr.error("No Selected Medias, Please Select atleast one...!");
+      } else {
+        this.data.change.next(selected);
+        this.onNoClick();
+      }
+    }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+ 
 }
