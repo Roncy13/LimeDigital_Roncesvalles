@@ -17,6 +17,7 @@ export class PopUpImageComponent implements OnInit {
   ngOnInit() {
     this.link = this.data.link;
     this.type = this.data.type;
+    console.log(this.type);
   }
 
   close() {

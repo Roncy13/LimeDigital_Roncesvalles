@@ -3,6 +3,9 @@ import { IndexSrvice } from './index.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IsLoggedIn } from '../../utitlities/constants';
+import { MatDialog } from '@angular/material';
+import { environment } from '../../../environments/environment';
+import { PopUpImageComponent } from '../../utitlities/dialog/pop-up-image.component';
 
 @Component({
   selector: 'app-index',
@@ -14,7 +17,13 @@ export class IndexComponent implements OnInit {
   posts: any = {};
   title = "Hi this is the Index Page of the CMS";
   body = `<p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo sit non sunt, a numquam reiciendis expedita possimus quisquam ipsam veritatis doloribus voluptas illum, nostrum perspiciatis laudantium minima obcaecati maxime laborum.</p>`;
-  constructor(private service: IndexSrvice, private route: ActivatedRoute, private router: Router) {}
+  
+  media = [];
+  constructor(
+    private service: IndexSrvice, 
+    private route: ActivatedRoute, 
+    public dialog: MatDialog,
+    private router: Router) {}
 
   ngOnInit() {
 
@@ -37,11 +46,25 @@ export class IndexComponent implements OnInit {
               this.posts = row['data'] as any;
               this.title = this.posts.title;
               this.body = this.posts.description
+              this.media = this.posts.post_media;
             })
             .finally(() => {Swal.close()});
           }
       })
     }
+  }
+
+  view(media) {
+    const link = `${environment.media}${media.path}`;
+    console.log(media);
+    this.dialog.open(PopUpImageComponent, {
+      width: "80%",
+      height: "100%",
+      data: {
+        link,
+        type: media.type
+      }
+    });
   }
 
 }

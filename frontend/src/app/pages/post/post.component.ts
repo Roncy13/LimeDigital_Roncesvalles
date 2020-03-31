@@ -282,6 +282,7 @@ export class MediaList implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     public fb: FormBuilder,
     private toastr: ToastrService,
+    private dialog: MatDialog,
     private mediaSrv: MediaService) {}
     
     ngOnInit() {
@@ -307,6 +308,19 @@ export class MediaList implements OnInit {
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    showImage(item) {
+      const link = `${environment.media}${item.path}`;
+    
+      this.dialog.open(PopUpImageComponent, {
+        width: "80%",
+        height: "100%",
+        data: {
+          link,
+          type: item.type
+        }
+      });
     }
  
 }

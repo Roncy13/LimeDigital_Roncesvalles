@@ -12,15 +12,16 @@ import { PostModule } from './pages/post/post.module';
 import { MediaModule } from './pages/media/media.module';
 import { CategoryModule } from './pages/category/category.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { IndexComponent } from './pages/index/index.component';
 import { RouterModule } from '@angular/router';
+import { IndexModule } from './pages/index/index.module';
+import { PopUpImageComponent } from './utitlities/dialog/pop-up-image.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    IndexComponent
+    AppComponent
   ],
   imports: [
+    IndexModule,
     BrowserModule,
     AppRoutingModule,
     HeaderModule,
