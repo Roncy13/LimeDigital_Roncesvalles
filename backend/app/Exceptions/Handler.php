@@ -53,6 +53,7 @@ class Handler extends ExceptionHandler
     {
         $statusCode = StatusCodes::SERVER_ERROR;
         $errors = [];
+        Log::info($exception);
         
         if ($exception instanceof AuthorizationException) {
             
@@ -78,7 +79,7 @@ class Handler extends ExceptionHandler
             //
         }
 
-        Log::info($exception);
+        
         
         return response()->json(
             [

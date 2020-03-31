@@ -40,7 +40,7 @@ class PostService
         if (isset($payload["media"]) && count($payload["media"]) > 0) {
             $medias = ($this->mediaSrv->findByIds($payload["media"]))->toArray();
             $fetchPost = $this->findById($result["id"]);
-            $records = $fetchPost->media()->createMany($medias);
+            $records = $fetchPost->postMedia()->createMany($medias);
 
             return ["post" => $result, "media" => $medias];
         }
@@ -57,8 +57,8 @@ class PostService
 
         if (isset($payload["media"]) && count($payload["media"]) > 0) {
             $medias = ($this->mediaSrv->findByIds($payload["media"]))->toArray();
-            $post->media()->delete();
-            $records = $post->media()->createMany($medias);
+            $post->postMedia()->delete();
+            $records = $post->postMedia()->createMany($medias);
             
             return ["post" => $post, "media" => $medias];
         }
@@ -68,13 +68,13 @@ class PostService
 
     public function destroy($id) {
         $post = $this->findById($id);
-        $post->media()->destroy();
+        $post->postMedia()->delete();
 
         return Post::destroy($id);
     }
 
     public function retrieveAll($user_id) {
-        $post = Post::where('user_id', $user_id)->orderBy('id', 'desc')->get();
+        $post = Post::where('user_id', $user_id)->orderBy("id", "desc")->orderBy('id', 'desc')->get();
 
         return $post->load('postMedia');
     }

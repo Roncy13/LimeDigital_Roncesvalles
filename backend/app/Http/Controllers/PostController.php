@@ -32,7 +32,7 @@ class PostController extends Controller
         return $this->response($result, "Your Post has been created Successfully...!"); 
     }
 
-    private function setMedia($id, $user_id) {
+    private function setPost($id, $user_id) {
         $post = new Post();
         $post->id = $id;
         $post->user_id = $user_id;
@@ -43,8 +43,9 @@ class PostController extends Controller
     public function update(Request $request, $id) {
         $payload = $request->only(["title", "description", "media", "category_id"]);
         $user_id = Auth::user()->id;
-        $media = $this->setMedia($id, $user_id);
-        //$this->authorize("update", $media);
+        $media = $this->setPost($id, $user_id);
+        
+        $this->authorize("update", $media);
         $result = $this->service->update($payload, $id);
 
         return $this->response($result, "Your Post has been updated Successfully...!");    
@@ -52,10 +53,9 @@ class PostController extends Controller
 
     public function destroy(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $media = $this->setMedia($id, $user_id);
+        $media = $this->setPost($id, $user_id);
 
         $this->authorize("destroy", $media);
-
         $result = $this->service->destroy($id);
 
         return $this->response($result, "Your Post has been deleted Successfully...!");    

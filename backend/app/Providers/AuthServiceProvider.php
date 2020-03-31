@@ -1,12 +1,13 @@
 <?php
 namespace App\Providers;
+use App\Policies\PostPolicy;
+use App\Policies\MediaPolicy;
 use Laravel\Passport\Passport; 
-use Illuminate\Support\Facades\Gate; 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use App\Policies\CategoryPolicy;
-use App\Policies\MediaPolicy;
 use App\Policies\PostMediaPolicy;
+use Illuminate\Support\Facades\Gate; 
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider 
 { 
@@ -16,10 +17,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array 
      */ 
     protected $policies = [
-        \App\Post::class => App\Policies\PostPolicy::class, 
         \App\Models\Category::class => CategoryPolicy::class,
         \App\Models\Media::class => MediaPolicy::class,
-        \App\Models\PostMedia::class => PostMediaPolicy::class
+        \App\Models\PostMedia::class => PostMediaPolicy::class,
+        \App\Models\Post::class => PostPolicy::class
     ];
 /** 
      * Register any authentication / authorization services. 

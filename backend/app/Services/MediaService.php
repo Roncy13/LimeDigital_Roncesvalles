@@ -40,7 +40,7 @@ class MediaService
     }
 
     public function retrieveAll($user_id) {
-        return Media::where('user_id', $user_id)->get();
+        return Media::where('user_id', $user_id)->orderBy("id", "desc")->get();
     }
 
     public function destroy($id) {

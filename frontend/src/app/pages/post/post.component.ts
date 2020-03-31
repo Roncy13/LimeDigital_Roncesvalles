@@ -20,22 +20,68 @@ import { PostService } from './post.service';
 export class PostComponent implements OnInit {
 
   change: Subject<boolean> = new Subject();
-
-  constructor(private dialog: MatDialog) {}
+  posts: [] = [];
+  
+  constructor(
+    private toast: ToastrService,
+    private dialog: MatDialog, 
+    private service: PostService) {}
 
   ngOnInit() {
 
     this.change.subscribe();
+    this.fetchPost();
+    this.change.subscribe(
+      row => {
+        if (row) {
+          this.fetchPost();
+        }
+      }
+    );
   }
 
-  showForm(): void {
+  fetchPost() {
+    Swal.showLoading();
+
+    const result = this.service.all().toPromise();
+
+    result.then(({data}) => this.posts = data)
+      .catch(this.service.checkError)
+      .finally(this.service.finally);
+  }
+
+  showForm(edit={}): void {
     this.dialog.open(PostDialog, {
       width: '50%',
       height: '100%',
-      data: { change: this.change, form: {} }
+      data: { change: this.change, form: edit }
     });
   }
 
+  delete(data) {
+    YesNo.fire({
+      title: "Confirmation",
+      icon: "info",
+      text: `Are you sure to delete ${data.title} ?`
+    }).then(res => {
+      if (res.value) {
+        DelayRequest(() => this.destroy(data.id));
+      }
+    })
+  }
+
+  destroy(id) {
+    const result = this.service.destroy(id).toPromise();
+
+    result.then(
+      ({message}) => this.toast.success(message)
+    )
+    .catch(this.service.checkError)
+    .finally(() => {
+      this.service.finally();
+      this.fetchPost();
+    })
+  }
 
 }
 
@@ -97,11 +143,6 @@ export class PostDialog {
     
   setData(): void {
     if (this.checkForm()) {
-      const { file = "" } = this.data.form;
-
-      this.form.setValue({
-        file
-      });
       this.saveButton = BUTTON.Edit;
     }
   }
@@ -120,12 +161,16 @@ export class PostDialog {
   }
   
   setForm() {
+    const medias = this.data.form.post_media || [];
+    
     this.form = this.fb.group({
-      title: ["", [Validators.required, Validators.maxLength(225)]],
-      description: ["", [Validators.required, Validators.maxLength(225)]],
-      category_id: ["", Validators.required],
-      media: [[], Validators.required]
+      title: [this.data.form.title || "", [Validators.required, Validators.maxLength(225)]],
+      description: [this.data.form.title || "", [Validators.required, Validators.maxLength(225)]],
+      category_id: [this.data.form.category_id || "", Validators.required],
+      media: [medias, Validators.required]
     });
+
+    this.medias = medias;
   }
 
   onNoClick(): void {
@@ -178,7 +223,7 @@ export class PostDialog {
     });
   }
 
-  delete(item, i) {
+  deleteItem(item, i) {
     YesNo.fire({
       title: "Confirmation",
       icon: "info",

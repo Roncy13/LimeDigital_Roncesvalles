@@ -2,15 +2,25 @@
 
 namespace App\Policies;
 
+use App\Models\Post;
 use App\User;
-use App\Post;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Services\PostService;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy
 {
     use HandlesAuthorization;
-    
+    private $service;
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    public function __construct(PostService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Determine whether the user can view any posts.
      *
@@ -44,7 +54,10 @@ class PostPolicy
     {
         return true;
     }
-
+    private function isPostOwndByUsr($user, $categoryId) {
+        $record = $this->service->findById($categoryId);
+        return $record->user_id === $user->id;
+    }
     /**
      * Determine whether the user can update the post.
      *
@@ -55,6 +68,7 @@ class PostPolicy
     public function update(User $user, Post $post)
     {
         //
+        return $this->isPostOwndByUsr($user, $post->id);
     }
 
     /**
@@ -64,9 +78,8 @@ class PostPolicy
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function delete(User $user, Post $post)
-    {
-        //
+    public function destroy(User $user, Post $post) {
+        return $this->isPostOwndByUsr($user, $post->id);
     }
 
     /**
