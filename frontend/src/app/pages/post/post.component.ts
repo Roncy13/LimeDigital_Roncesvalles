@@ -11,6 +11,7 @@ import { pullAt } from 'lodash';
 import Swal from 'sweetalert2';
 import { CategoryService } from '../category/category.service';
 import { PostService } from './post.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -25,6 +26,7 @@ export class PostComponent implements OnInit {
   constructor(
     private toast: ToastrService,
     private dialog: MatDialog, 
+    private route: ActivatedRoute,
     private service: PostService) {}
 
   ngOnInit() {
@@ -38,6 +40,18 @@ export class PostComponent implements OnInit {
         }
       }
     );
+
+    this.checkPageStatus();
+  }
+
+  checkPageStatus() {
+    this.route.queryParamMap.subscribe(params => {
+      const result = params.get("add") || 'false';
+
+      if (result == 'true') {
+        this.showForm();
+      }
+    })
   }
 
   fetchPost() {
