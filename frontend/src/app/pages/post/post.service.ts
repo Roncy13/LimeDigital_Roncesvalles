@@ -17,11 +17,11 @@ export class PostService extends Service {
   }
 
   create(payload) {
-    return this.formData('post', payload);
+    return this.post('post', payload);
   }
 
   update(payload, id) {
-    return this.formData(`post/${id}`, payload);
+    return this.patch(`post/${id}`, payload);
   }
 
   destroy(id) {

@@ -9,6 +9,8 @@ import { environment } from '../../../environments/environment';
 import { PopUpImageComponent } from '../../utitlities/dialog/pop-up-image.component';
 import { pullAt } from 'lodash';
 import Swal from 'sweetalert2';
+import { CategoryService } from '../category/category.service';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-post',
@@ -49,13 +51,15 @@ export class PostDialog {
   file: string;
   medias: [] = [];
   change: Subject<[]> = new Subject();
-
+  categories = [];
   constructor(
     public dialogRef: MatDialogRef<PostDialog>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data,
     public fb: FormBuilder,
     private toast: ToastrService,
+    private categorySrv: CategoryService,
+    private service: PostService,
     private mediaSrv: MediaService) {
       this.save = this.save.bind(this);
       this.saveFile = this.saveFile.bind(this);
@@ -65,8 +69,17 @@ export class PostDialog {
       this.setData();
 
       this.setSelectedMedia();
+      this.setCategory();
     }
 
+  setCategory() {
+    const result = this.categorySrv.all().toPromise();
+
+    result.then((row)=> this.categories = row.data)
+      .catch(this.categorySrv.checkError)
+      .finally(this.categorySrv.finally)
+  }
+  
   setSelectedMedia() {
     this.change.subscribe(row => {
       if (row) {
@@ -93,13 +106,24 @@ export class PostDialog {
     }
   }
 
-  save() {}
+  save(payload, form) {
+    const result = !this.checkForm() ? this.service.create(payload).toPromise() : this.service.update(payload, form.id).toPromise();
+
+      result
+        .then(({message}) => {
+          this.onNoClick();
+          this.toast.success(message);
+          // this.data.change.next(true);
+        })
+        .catch(this.service.checkError)
+        .finally(this.service.finally);
+  }
   
   setForm() {
     this.form = this.fb.group({
-      title: ["", Validators.required],
-      description: ["", Validators.required],
-      category: ["", Validators.required],
+      title: ["", [Validators.required, Validators.maxLength(225)]],
+      description: ["", [Validators.required, Validators.maxLength(225)]],
+      category_id: ["", Validators.required],
       media: [[], Validators.required]
     });
   }
@@ -111,13 +135,10 @@ export class PostDialog {
   saveForm() {
     const { value } = this.form;
 
-    console.log(value);
-   /*const { type } = this.fileToUpload;
-    let formData = new FormData();
-    formData.append(type.includes('image/') ? 'photo' : 'video', this.fileToUpload);
+    value.media = value.media.map(row => row.id);
 
-    console.log(formData.getAll('photo'));
-    DelayRequest(() => this.save(formData, this.data.form));*/
+    console.log(value);
+    DelayRequest(() => this.save(value, this.data.form));
   }
 
   handleFileInput(files: FileList) {

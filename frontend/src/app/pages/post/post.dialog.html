@@ -4,7 +4,10 @@
     <form [formGroup]="form" (submit) = "saveForm()">
       <div class="form-group">
         <label for="category">Category</label>
-        <input type="text" formControlName="category" class="form-control" id="category">
+        <select formControlName="category_id" class = "form-control w-100" id="category">
+          <option value = "">--Select Category--</option>
+          <option *ngFor="let item of categories" [value]="item.id">{{ item.description }}</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="tite">Title</label>
