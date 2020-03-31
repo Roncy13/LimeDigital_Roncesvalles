@@ -30,6 +30,7 @@
             <td>{{ media.created_at}}</td>
             <td>{{ media.updated_at}}</td>
             <td>
+              <button class = "btn btn-primary btn-md" (click)="showImage(media)">View</button>
               <button class = "btn btn-info btn-md" (click)="edit(media)">Edit</button>
               <button class = "btn btn-danger btn-md" (click)="delete(media)">Delete</button>
             </td>

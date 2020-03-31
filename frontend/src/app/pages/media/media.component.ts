@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DelayRequest, BUTTON, YesNo } from '../../utitlities/constants';
 import { Subject } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { PopUpImageComponent } from '../../utitlities/dialog/pop-up-image.component';
 
 @Component({
   selector: 'app-media',
@@ -77,6 +79,19 @@ export class MediaComponent implements OnInit {
       this.service.finally();
       this.fetchMedias();
     })
+  }
+
+  showImage(media) {
+    const link = `${environment.media}${media.path}`;
+    
+    this.dialog.open(PopUpImageComponent, {
+      width: "80%",
+      height: "100%",
+      data: {
+        link,
+        type: media.type
+      }
+    });
   }
 
 }
