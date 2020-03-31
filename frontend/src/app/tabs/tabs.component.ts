@@ -12,9 +12,7 @@ export class TabsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.showMenu);
     this.showMenu = IsLoggedIn();
-    console.log(this.showMenu);
   }
 
 }

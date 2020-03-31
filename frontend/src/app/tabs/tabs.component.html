@@ -8,30 +8,14 @@
           <li class="has-submenu">
             <a href="javascript:void(0)" class="submenu-toggle">
               <i class="menu-icon zmdi zmdi-pages zmdi-hc-lg"></i>
-              <span class="menu-text">Menu</span>
+              <span class="menu-text">Pages Management</span>
               <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
             </a>
             <ul class="submenu">
-              <li><a href="profile.html"><span class="menu-text">Profile</span></a></li>
-              <li><a href="price.html"><span class="menu-text">Prices</span></a></li>
-              <li><a href="invoice.html"><span class="menu-text">Invoice</span></a></li>
-              <li><a href="gallery.1.html"><span class="menu-text">Gallery</span></a></li>
-              <li><a href="gallery.2.html"><span class="menu-text">Gallery 2</span></a></li>
-              <li><a href="support.html"><span class="menu-text">FAQ</span></a></li>
-              <li class="has-submenu">
-                <a href="javascript:void(0)" class="submenu-toggle">
-                  <i class="menu-icon zmdi zmdi-plus zmdi-hc-lg"></i>
-                  <span class="menu-text">Misc Pages</span>
-                  <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                </a>
-                <ul class="submenu">
-                  <li><a href="login.html"><span class="menu-text">Login</span></a></li>
-                  <li><a href="signup.html"><span class="menu-text">Sign Up</span></a></li>
-                  <li><a href="password-forget.html"><span class="menu-text">Reset Password</span></a></li>
-                  <li><a href="unlock.html"><span class="menu-text">Unlock Screen</span></a></li>
-                  <li><a href="404.html"><span class="menu-text">404 Error</span></a></li>
-                </ul>
-              </li>
+              <li><a [routerLink]="['/post']" [queryParams]="{add: false}"><span class="menu-text">View All</span></a></li>
+              <li><a [routerLink]="['/post']" [queryParams]="{add: true}"><span class="menu-text">Add New</span></a></li>
+              <li><a [routerLink]="['/media']"><span class="menu-text">Media</span></a></li>
+              <li><a [routerLink]="['/category']"><span class="menu-text">Categories</span></a></li>
             </ul>
           </li>
         </ul><!-- .app-menu -->

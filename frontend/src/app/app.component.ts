@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../environments/environment';
+import { IsLoggedIn } from './utitlities/constants';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,9 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = 'frontend';
+  show = false;
+
+  constuctor() {
+    this.show = !IsLoggedIn();
+  }
 }

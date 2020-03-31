@@ -2,5 +2,7 @@
 <!-- APP ASIDE ==========-->
 <app-header></app-header>
 <app-tabs></app-tabs>
-
-<router-outlet></router-outlet>
+<div *ngIf="show else router"></div>
+<ng-template #router>
+  <router-outlet></router-outlet>
+</ng-template>
