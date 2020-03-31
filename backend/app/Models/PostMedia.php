@@ -9,5 +9,5 @@ class PostMedia extends Model
     //
 
     protected $table = 'post_media';
-    protected $fillable = ['post_id', 'name', 'path'];
+    protected $fillable = ['post_id', 'name', 'path', 'type'];
 }

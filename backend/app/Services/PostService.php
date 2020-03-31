@@ -78,4 +78,16 @@ class PostService
 
         return $post->load('postMedia');
     }
+
+    public function all() {
+        $post = Post::all();
+
+        return $post ? $post->load('postMedia') : $post;
+    }
+
+    public function retrieve($id) {
+        $post = Post::find($id);
+
+        return $post ? $post->load('postMedia') : (object)[];
+    }
 }

@@ -46,6 +46,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     });
 });
 
+Route::get('/public/post/{id}', 'PostController@index');
+Route::get('/public/post', 'PostController@all');
 Route::get('/post/sample', 'PostController@sample');
 
 Route::fallback(function(){

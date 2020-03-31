@@ -16,6 +16,18 @@ class PostController extends Controller
     function __construct(PostService $service) {
         $this->service = $service;
     }
+
+    public function all(Request $request) {
+        $result = $this->service->all();
+
+        return $this->response($result, "All Post");   
+    }
+
+    public function index(Request $request, $id) {
+        $result = $this->service->retrieve($id);
+
+        return $this->response($result, "All Post");   
+    }
     
     public function retrieve() {
         $id = Auth::user()->id;
