@@ -4,15 +4,17 @@ namespace App\Services;
 
 use App\User;
 use App\Models\Media;
+use Illuminate\Support\Facades\Storage;
 
 class MediaService
 {
     
-    public function create($file, $user_id) { 
+    public function create($file, $user_id, $type) { 
         $name = $file->getClientOriginalName();
-        $path = $file->store($user_id);
+        $path = Storage::put("public/{$user_id}/{$type}", $file);
+        $path = str_replace("public/", "storage/", $path);
         $user = User::find($user_id);
-        $payload = ["name" => $name, "path" => $path];
+        $payload = ["name" => $name, "path" => $path, "type" => $type];
         
         return $user->media()->create($payload);
     }

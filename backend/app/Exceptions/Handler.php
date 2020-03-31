@@ -77,6 +77,8 @@ class Handler extends ExceptionHandler
             , $statusCode); 
             //
         }
+
+        Log::info($exception);
         
         return response()->json(
             [

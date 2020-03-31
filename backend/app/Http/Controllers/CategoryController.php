@@ -20,7 +20,7 @@ class CategoryController extends Controller
         $payload = $request->all();
         $result = $this->service->create($payload, Auth::user()->id);
 
-        return response()->json(["data" => $result]);
+        return $this->response($result, "Category has been added Successfully...!");
     }
 
     public function view(Request $request) {
@@ -40,10 +40,9 @@ class CategoryController extends Controller
     }
 
     public function destroy(Request $request, $id) {
-        $payload = $request->all();
         $category = $this->setCategory($id);
         $this->authorize("destroy", $category);
-        $result = $this->service->destroy($payload, $id);
+        $result = $this->service->destroy($id);
 
         return $this->response($result, "Category has been deleted Successfully...!");
     }

@@ -13,7 +13,7 @@ class CategoryService
     }
 
     public function retrieveAll($id) {
-        return Category::where('user_id', $id)->get();
+        return Category::where('user_id', $id)->orderBy("id", "desc")->get();
     }
 
     public function update($payload, $categoryId) {
