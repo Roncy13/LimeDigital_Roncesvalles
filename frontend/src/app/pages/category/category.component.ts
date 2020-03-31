@@ -124,8 +124,8 @@ export class DialogOverviewExampleDialog {
   }
     
   setData(): void {
-    if (this.checkForm) {
-      const { description } = this.data.form;
+    if (this.checkForm()) {
+      const { description = "" } = this.data.form;
 
       this.form.setValue({
         description

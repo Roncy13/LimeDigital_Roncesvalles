@@ -79,6 +79,14 @@ export class Service {
     );
   }
 
+  public formData<T>(route: string, body) {
+    return this.http.post<any>(
+      this.createCompleteRoute(route, this.url),
+      body,
+      this.generateHeaders()
+    );
+  }
+
   public put<T>(route: string, body) {
     body = { ...body, ...this.getToken() };
 
@@ -117,6 +125,14 @@ export class Service {
 
   private createCompleteRoute(route: string, resourceUrl: string) {
     return `${resourceUrl}/${route}`;
+  }
+
+  private generateHeadersFD() {
+    return {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem(token)}`)
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    };
   }
 
   private generateHeaders() {

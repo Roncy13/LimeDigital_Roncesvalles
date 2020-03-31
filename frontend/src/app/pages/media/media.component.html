@@ -7,7 +7,7 @@
       </div>
       <div class="form-group text-right">
         <button type="submit" class="btn btn-primary">Search</button>
-        <button type="button" class="btn btn-success add-new" (click)="add()">Add New</button>
+        <button type="button" class="btn btn-success add-new ml-2" (click)="showForm()">Add New</button>
       </div>
     </form>  
   </div><!-- .widget -->
@@ -17,6 +17,7 @@
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
+            <th>Type</th>
             <th>Date Created</th>
             <th>Date Updated</th>
             <th>Action</th>
@@ -24,9 +25,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-media>
         <tr>
-            <td>{{media.name}}</td>
-            <td>{{media.created_at}}</td>
-            <td>{{media.updated_at}}</td>
+            <td>{{ media.name | titlecase }}</td>
+            <td>{{ media.type | titlecase }}</td>
+            <td>{{ media.created_at}}</td>
+            <td>{{ media.updated_at}}</td>
             <td>
               <button class = "btn btn-info btn-md" (click)="edit(media)">View</button>
               <button class = "btn btn-danger btn-md" (click)="delete(media)">Delete</button>

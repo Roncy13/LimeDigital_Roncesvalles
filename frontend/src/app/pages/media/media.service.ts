@@ -17,11 +17,11 @@ export class MediaService extends Service {
   }
 
   create(payload) {
-    return this.post('media', payload);
+    return this.formData('media', payload);
   }
 
   update(payload, id) {
-    return this.put(`media/${id}`, payload);
+    return this.formData(`media/${id}`, payload);
   }
 
   destroy(id) {

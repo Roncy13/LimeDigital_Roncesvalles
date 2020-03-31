@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MediaComponent } from './media.component';
+import { MediaComponent, MediaDialog } from './media.component';
 import { MediaRoutingModule } from './media.routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { PageModule } from '../../utitlities/page.module';
 
 @NgModule({
-  declarations: [MediaComponent],
+  entryComponents: [MediaDialog],
+  declarations: [MediaComponent, MediaDialog],
   imports: [
     CommonModule,
     MediaRoutingModule,
