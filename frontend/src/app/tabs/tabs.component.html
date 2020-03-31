@@ -1,5 +1,6 @@
 
 <div *ngIf="showMenu else show"></div>
+<div *ngIf="!showMenu else public"></div>
 <ng-template #show>
   <aside id="menubar" class="menubar light">
     <div class="menubar-scroll">
@@ -17,6 +18,21 @@
               <li><a [routerLink]="['/media']"><span class="menu-text">Media</span></a></li>
               <li><a [routerLink]="['/category']"><span class="menu-text">Categories</span></a></li>
             </ul>
+          </li>
+        </ul><!-- .app-menu -->
+      </div><!-- .menubar-scroll-inner -->
+    </div><!-- .menubar-scroll -->
+  </aside>
+</ng-template>
+<ng-template #public>
+  <aside id="menubar" class="menubar light">
+    <div class="menubar-scroll">
+      <div class="menubar-scroll-inner">
+        <ul class="app-menu">
+          <li *ngFor="let item of posts">
+            <a [routerLink]="['']" [queryParams]="{id: item.id}" >
+              <span class="menu-text"><h1>{{ item.title }}</h1></span>
+            </a>
           </li>
         </ul><!-- .app-menu -->
       </div><!-- .menubar-scroll-inner -->

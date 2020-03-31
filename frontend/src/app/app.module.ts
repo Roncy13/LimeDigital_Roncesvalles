@@ -13,6 +13,7 @@ import { MediaModule } from './pages/media/media.module';
 import { CategoryModule } from './pages/category/category.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { IndexComponent } from './pages/index/index.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { IndexComponent } from './pages/index/index.component';
     AppRoutingModule,
     HeaderModule,
     TabsModule,
+    RouterModule,
     PostModule,
     AgGridModule.withComponents([]),
     MediaModule,
