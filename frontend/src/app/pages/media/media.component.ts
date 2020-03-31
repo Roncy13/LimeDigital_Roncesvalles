@@ -17,7 +17,7 @@ export class MediaComponent implements OnInit {
   medias = [];
   change: Subject<boolean> = new Subject();
 
-  constructor(private service: MediaService, public dialog: MatDialog) { }
+  constructor(private service: MediaService, public dialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.fetchMedias();
@@ -26,6 +26,13 @@ export class MediaComponent implements OnInit {
       if (row) {
         this.fetchMedias();
       }
+    });
+  }
+
+  edit(data) {
+    this.dialog.open(MediaDialog, {
+      width: '50%',
+      data: { change: this.change, form: data }
     });
   }
 
@@ -45,6 +52,31 @@ export class MediaComponent implements OnInit {
       width: '50%',
       data: { change: this.change, form: {} }
     });
+  }
+
+  delete(data) {
+    YesNo.fire({
+      title: "Confirmation",
+      icon: "info",
+      text: `Are you sure to delete ${data.name} ?`
+    }).then(res => {
+      if (res.value) {
+        DelayRequest(() => this.destroy(data.id));
+      }
+    })
+  }
+
+  destroy(id) {
+    const result = this.service.destroy(id).toPromise();
+
+    result.then(
+      ({message}) => this.toastr.success(message)
+    )
+    .catch(this.service.checkError)
+    .finally(() => {
+      this.service.finally();
+      this.fetchMedias();
+    })
   }
 
 }
