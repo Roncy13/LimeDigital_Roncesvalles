@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoggedInGuard } from './logged-in.guard';
+import { IndexComponent } from './pages/index/index.component';
 
 
 const routes: Routes = [
+  {
+    path: "",
+    component: IndexComponent,
+  },
   {
     path: "post",
     loadChildren: "./pages/post/post.module#PostModule",

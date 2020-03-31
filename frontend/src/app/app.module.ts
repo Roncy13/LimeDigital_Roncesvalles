@@ -12,10 +12,12 @@ import { PostModule } from './pages/post/post.module';
 import { MediaModule } from './pages/media/media.module';
 import { CategoryModule } from './pages/category/category.module';
 import { AgGridModule } from 'ag-grid-angular';
+import { IndexComponent } from './pages/index/index.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
