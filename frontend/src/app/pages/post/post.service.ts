@@ -21,7 +21,7 @@ export class PostService extends Service {
   }
 
   update(payload, id) {
-    return this.patch(`post/${id}`, payload);
+    return this.put(`post/${id}`, payload);
   }
 
   destroy(id) {

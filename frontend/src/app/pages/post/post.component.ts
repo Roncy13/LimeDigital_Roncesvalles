@@ -154,7 +154,7 @@ export class PostDialog {
         .then(({message}) => {
           this.onNoClick();
           this.toast.success(message);
-          // this.data.change.next(true);
+          this.data.change.next(true);
         })
         .catch(this.service.checkError)
         .finally(this.service.finally);
@@ -224,21 +224,13 @@ export class PostDialog {
   }
 
   deleteItem(item, i) {
-    YesNo.fire({
-      title: "Confirmation",
-      icon: "info",
-      text: `Are you sure to delete ${item.name} ?`
-    }).then(res => {
-      if (res.value) {
-        let media = this.form.controls['media'].value;
+    let media = this.form.controls['media'].value;
 
-        pullAt(media,[i]);
-        this.form.patchValue({
-          media
-        });
-        this.medias = media;
-      }
-    })
+    pullAt(media,[i]);
+    this.form.patchValue({
+      media
+    });
+    this.medias = media;
   }
 
   saveFile(payload, form) {
