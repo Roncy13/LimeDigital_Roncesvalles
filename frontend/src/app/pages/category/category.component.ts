@@ -7,7 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import { DelayRequest, BUTTON, YesNo } from '../../utitlities/constants';
 import { Subject } from 'rxjs';
 
-
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',

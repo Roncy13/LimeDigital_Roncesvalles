@@ -1,1 +1,37 @@
-<p>media works!</p>
+<div class="col-md-12 col-sm-12">
+  <div class="widget p-md clearfix">
+    <form>
+      <div class="form-group">
+        <label for="search">Search</label>
+        <input type="email" class="form-control" id="search">
+      </div>
+      <div class="form-group text-right">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" class="btn btn-success add-new" (click)="add()">Add New</button>
+      </div>
+    </form>  
+  </div><!-- .widget -->
+</div>
+<div class="col-md-12 col-sm-12">
+  <p-table [value]="medias" [rows]="10" [paginator]="true" [rows]="25" autoLayout="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Date Created</th>
+            <th>Date Updated</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-media>
+        <tr>
+            <td>{{media.name}}</td>
+            <td>{{media.created_at}}</td>
+            <td>{{media.updated_at}}</td>
+            <td>
+              <button class = "btn btn-info btn-md" (click)="edit(media)">View</button>
+              <button class = "btn btn-danger btn-md" (click)="delete(media)">Delete</button>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div>
