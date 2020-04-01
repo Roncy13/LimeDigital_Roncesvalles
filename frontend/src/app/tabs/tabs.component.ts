@@ -34,7 +34,6 @@ export class TabsComponent implements OnInit, OnChanges {
     } else {
       this.name = null;
     }
-    console.log(this.name);
   }
 
   checkStatus() {
@@ -53,5 +52,4 @@ export class TabsComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.checkStatus();
   }
-
 }

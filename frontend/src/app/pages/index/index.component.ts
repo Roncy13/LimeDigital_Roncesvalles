@@ -17,7 +17,7 @@ export class IndexComponent implements OnInit {
   posts: any = {};
   title = "Hi this is the Index Page of the CMS";
   body = `<p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo sit non sunt, a numquam reiciendis expedita possimus quisquam ipsam veritatis doloribus voluptas illum, nostrum perspiciatis laudantium minima obcaecati maxime laborum.</p>`;
-  
+  category = "";
   media = [];
   constructor(
     private service: IndexSrvice, 
@@ -47,6 +47,7 @@ export class IndexComponent implements OnInit {
               this.title = this.posts.title;
               this.body = this.posts.description
               this.media = this.posts.post_media;
+              this.category = this.posts.category.description;
             })
             .finally(() => {Swal.close()});
           }

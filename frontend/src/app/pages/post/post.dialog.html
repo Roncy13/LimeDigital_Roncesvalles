@@ -25,7 +25,7 @@
         ></editor>
       </div>
       <div class="form-group">
-        <label for="add_media">Add Media</label>
+        <label for="add_media">Add Media (video/avi,video/mpeg,video/quicktime,video/avi : 25mb | jpeg,bmp,png,jpg : 8mb)</label>
         <input [(ngModel)]="file" [ngModelOptions]="{standalone: true}" (change)="handleFileInput($event.target.files)" type="file" accept="video/*,image/*" class="form-control" id="add_media"/>
       </div>
 
@@ -40,9 +40,9 @@
         </div>
       </div>
       <div class="form-group">
-        <div class = "w-100 d-flex text-right mb-2" *ngFor="let item of medias; let i = index">
+        <div class = "w-100 d-flex justify-content-end mb-2" *ngFor="let item of medias; let i = index">
           {{ item.name }}
-          <button id="selected_media_{{item.id}}_view" class = "btn btn-md btn-primary" (click)="view(item)">View</button>  
+          <button id="selected_media_{{item.id}}_view" class = "btn btn-md btn-primary ml-2" (click)="view(item)">View</button>  
           <button id="selected_media_{{item.id}}_edit" class = "btn btn-md btn-danger ml-2" (click)="deleteItem(item, i)">Delete</button>  
         </div>
       </div>

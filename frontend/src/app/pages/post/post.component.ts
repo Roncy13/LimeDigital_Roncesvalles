@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
 
   change: Subject<boolean> = new Subject();
   posts: [] = [];
-  
+  showAdd = false;
   constructor(
     private toast: ToastrService,
     private dialog: MatDialog, 
@@ -59,7 +59,9 @@ export class PostComponent implements OnInit {
 
     const result = this.service.all().toPromise();
 
-    result.then(({data}) => this.posts = data)
+    result.then(({data}) =>  {
+      this.posts = data;
+    })
       .catch(this.service.checkError)
       .finally(this.service.finally);
   }
