@@ -212,7 +212,7 @@ export class PostDialog {
     let formData = new FormData();
     formData.append(type.includes('image/') ? 'photo' : 'video', this.fileToUpload);
 
-    DelayRequest(() => this.saveFile(formData, this.data.form));
+    DelayRequest(() => this.saveFile(formData, {}));
   }
 
   selectMedia() {
@@ -248,7 +248,7 @@ export class PostDialog {
   }
 
   saveFile(payload, form) {
-    let result = !this.checkForm() ? this.mediaSrv.create(payload).toPromise() : this.mediaSrv.update(payload, form.id).toPromise();
+    let result =this.mediaSrv.create(payload).toPromise();
     
       result
         .then(({message, data}) => {
