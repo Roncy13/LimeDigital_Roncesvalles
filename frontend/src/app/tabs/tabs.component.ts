@@ -14,20 +14,15 @@ export class TabsComponent implements OnInit, OnChanges {
   showMenu = false;
   name = null;
   posts: [] =[];
-  constructor(private service: IndexSrvice, private router: Router) {}
+  constructor(private service: IndexSrvice, private router: Router) {
+    this.router.events.subscribe((val) => {
+      // see also 
+      this.checkStatus();
+    });
+  }
 
   ngOnInit() {
     this.checkStatus();
-    
-    if (this.showMenu) {
-      const result = this.service.all().toPromise();
-
-      Swal.showLoading();
-      result
-        .then(row => this.posts = row['data'])
-        .finally(() => {Swal.close()});
-    }
-    
   }
 
   setUsername() {
@@ -36,11 +31,22 @@ export class TabsComponent implements OnInit, OnChanges {
 
     if (info) {
       this.name = info.name || null;
+    } else {
+      this.name = null;
     }
+    console.log(this.name);
   }
 
   checkStatus() {
     this.showMenu = IsLoggedIn();
+    if (this.showMenu) {
+      const result = this.service.all().toPromise();
+
+      Swal.showLoading();
+      result
+        .then(row => this.posts = row['data'])
+        .finally(() => {Swal.close()});
+    }
     this.setUsername();
   }
 

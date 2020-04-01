@@ -19,7 +19,12 @@ export class HeaderComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private router: Router,
     private dialog: MatDialog
-  ) { }
+  ) {
+    this.router.events.subscribe((val) => {
+      // see also 
+      this.showMenu = IsLoggedIn();
+    });
+   }
 
   ngOnInit() {
     this.showMenu = IsLoggedIn();
