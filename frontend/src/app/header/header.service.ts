@@ -15,4 +15,8 @@ export class HeaderService extends Service {
   signIn(email: string, password: string) {
     return this.post('login', { email, password} );
   }
+
+  register({email, password, c_password, name}) {
+    return this.post('register', { email, password, c_password, name } );
+  }
 }

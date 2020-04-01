@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { IsLoggedIn } from '../utitlities/constants';
 import { IndexSrvice } from '../pages/index/index.service';
 import Swal from 'sweetalert2';
@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss']
 })
-export class TabsComponent implements OnInit {
+export class TabsComponent implements OnInit, OnChanges {
   showMenu = false;
 
   posts: [] =[];
   constructor(private service: IndexSrvice, private router: Router) {}
 
   ngOnInit() {
-    this.showMenu = IsLoggedIn();
+    this.checkStatus();
     if (this.showMenu) {
       const result = this.service.all().toPromise();
 
@@ -27,6 +27,14 @@ export class TabsComponent implements OnInit {
         .finally(() => {Swal.close()});
     }
     
+  }
+
+  checkStatus() {
+    this.showMenu = IsLoggedIn();
+  }
+
+  ngOnChanges() {
+
   }
 
 }

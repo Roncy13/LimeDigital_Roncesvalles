@@ -51,16 +51,14 @@ class UserController extends Controller {
     { 
         $payload = $request->all();
         $result = $this->service->register($payload);
-        $success['token'] =  $result->createToken('MyApp')->accessToken; 
-        $success['name'] =  $result->name;
-        $code = StatusCodes::UNAUTHORIZED;
+        $code = StatusCodes::SUCCESS;
 
-        return response()->json(['success'=> $success], $code); 
+        return response()->json(['success'=> (object) []], $code); 
     }
 /** 
      * details api 
      * 
-     * @return \Illuminate\Http\Response 
+     * @return \Illuminate\Ht   tp\Response 
      */ 
     public function details() 
     { 

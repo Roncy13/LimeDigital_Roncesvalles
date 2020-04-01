@@ -1,0 +1,33 @@
+<div class="col-md-12 col-sm-12">
+  <h2>Register</h2>
+  <div class="widget p-md clearfix">
+    <form [formGroup]="form" (submit) = "saveForm()">
+      <div class="form-group">
+        <label for="name">Name *</label>
+        <input type="text" formControlName="name" class="form-control" id="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" formControlName="email" class="form-control" id="email">
+      </div>
+      <div class="form-group">
+       This Field should be a valid Email Address
+      </div>
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input type="password" formControlName="password" class="form-control" id="password">
+      </div>
+      <div class="form-group">
+        <label for="c_password">Confirm Password *</label>
+        <input type="password" formControlName="c_password" class="form-control" id="c_password">
+      </div>
+      <div *ngIf="mismach == true" class="form-group">
+        Password Do Not Match...!
+      </div>
+      <div class="form-group d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid || mismach == true">{{ saveButton }}</button>
+        <button type="button" class="btn btn-success add-new ml-2" (click)="onNoClick()">Close</button>
+      </div>
+    </form>  
+  </div><!-- .widget -->
+</div>

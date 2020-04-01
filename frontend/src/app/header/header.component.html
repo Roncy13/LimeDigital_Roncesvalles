@@ -17,7 +17,7 @@
       <span class="zmdi zmdi-hc-lg zmdi-search"></span>
     </button>
 
-    <a href="../assets/index.html" class="navbar-brand">
+    <a [routerLink]="['/']" class="navbar-brand">
       <span class="brand-icon"><i class="fa fa-gg"></i></span>
       <span class="brand-name">Infinity</span>
     </a>
@@ -38,11 +38,16 @@
 
       <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
         <li class="nav-item dropdown hidden-float">
+          <a *ngIf="showMenu" href="javascript:void(0)" (click)="register()" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
+            Register
+          </a>
+        </li>
+        <li class="nav-item dropdown hidden-float">
             <a *ngIf="showMenu" href="javascript:void(0)" (click)="signIn()" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
-              <i class="zmdi zmdi-hc-lg zmdi-mail-send"></i>
+              Sign In
             </a>
             <a *ngIf="!showMenu" href="javascript:void(0)" (click)="signOut()" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
-              <i class="zmdi zmdi-hc-lg zmdi-mail-reply"></i>
+              Sign Out
             </a>
         </li>
       </ul>
