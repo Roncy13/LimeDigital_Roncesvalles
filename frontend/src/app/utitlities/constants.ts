@@ -164,7 +164,11 @@ export class Service {
 
       this.toast.error(firtErrMsg);
       this.toast.error(message);
-    } else {
+    } else if (err.status == 402) {
+      const { message = ""} = err.error; 
+      this.toast.warning(message);
+    }
+    else {
       this.toast.error("Cannot Process Request, Please Email JamesRoncy13@gmail.com for the incident happpend...!");
     }
   }

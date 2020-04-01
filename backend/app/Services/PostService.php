@@ -90,6 +90,6 @@ class PostService
     public function retrieve($id) {
         $post = Post::find($id);
 
-        return $post ? $post->load(['postMedia', 'category']) : (object)[];
+        return $post ? $post->load(['postMedia', 'category', 'users']) : (object)[];
     }
 }

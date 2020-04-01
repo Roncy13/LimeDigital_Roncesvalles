@@ -7,6 +7,9 @@
       <div class = "col-lg-12" *ngIf="category !== null">
         <h4 class="section-heading animated">Category: {{ category | titlecase }}</h4>
       </div>
+      <div class = "col-lg-12" *ngIf="created !== null">
+        <h4 class="section-heading animated">By: {{ created | titlecase }}</h4>
+      </div>
       <div class = "col-lg-12" [innerHTML]="body">
         <h2 class="section-heading animated">{{ title }}</h2>
       </div>

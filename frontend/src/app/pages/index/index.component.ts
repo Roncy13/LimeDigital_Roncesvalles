@@ -20,6 +20,7 @@ export class IndexComponent implements OnInit {
   body = "";
   category = "";
   media = [];
+  created = null;
   showPost = true;
   constructor(
     private service: IndexSrvice, 
@@ -47,11 +48,12 @@ export class IndexComponent implements OnInit {
           result
             .then(row => {
               this.posts = row['data'] as any;
-              const { title, description, post_media, category} = this.posts;
+              const { title, description, post_media, category, users} = this.posts;
               this.title = title;
               this.body = description
               this.media = post_media;
               this.category = category.description;
+              this.created = users.name;
               this.showPost = !isEmpty(row['data']);
 
               if (!this.showPost) {
@@ -72,6 +74,7 @@ export class IndexComponent implements OnInit {
     this.body = `<p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo sit non sunt, a numquam reiciendis expedita possimus quisquam ipsam veritatis doloribus voluptas illum, nostrum perspiciatis laudantium minima obcaecati maxime laborum.</p>`;
     this.category = "";
     this.media = [];
+    this.created = null;
   }
 
   view(media) {
