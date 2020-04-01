@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Inject } from '@angular/core';
-import { YesNo, token, IsLoggedIn, DelayRequest, BUTTON } from '../utitlities/constants';
+import { YesNo, token, IsLoggedIn, DelayRequest, BUTTON, user } from '../utitlities/constants';
 import { HeaderService } from './header.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -71,7 +71,9 @@ export class HeaderComponent implements OnInit {
     result
       .then(({ data, message }) => {
         this.toastr.success(message);
-        localStorage.setItem(token, data);
+        localStorage.setItem(token, data.token);
+        localStorage.setItem(user, JSON.stringify(data.user));
+        //console.log(data.user);
         setTimeout(() =>location.replace('/post'),1000);
         
       })

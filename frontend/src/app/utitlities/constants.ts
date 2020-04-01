@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 
 export const token = 'token';
+export const user = 'user';
 
 export const YesNo = Swal.mixin({
   confirmButtonText: 'Ok',

@@ -1,20 +1,20 @@
-<div class="col-md-12 col-sm-12 mt-5">
+<div class="col-md-12 col-sm-12 mt-2">
   Page Form <br>
   <div class="widget p-md clearfix">
     <form [formGroup]="form" (submit) = "saveForm()">
       <div class="form-group">
-        <label for="category">Category</label>
+        <label for="category">Category *</label>
         <select formControlName="category_id" class = "form-control w-100" id="category">
           <option value = "">--Select Category--</option>
           <option *ngFor="let item of categories" [value]="item.id">{{ item.description }}</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="tite">Title</label>
+        <label for="tite">Title *</label>
         <input type="text" formControlName="title" class="form-control" id="title">
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Description *</label>
         <editor
           apiKey="1oe3czvs8f3sr5c7004mt52rkn5688epap8l74x37bp8vwey"
           [init] = "{
@@ -34,6 +34,11 @@
         <button type = "button" (click)="selectMedia()" class="btn btn-info btn-md" id="select_media">Choose</button>
       </div>
 
+      <div class="form-group">
+        <div class = "w-100 d-flex text-right mb-2">
+          <label for="select_media">Selected Media/s *</label>
+        </div>
+      </div>
       <div class="form-group">
         <div class = "w-100 d-flex text-right mb-2" *ngFor="let item of medias; let i = index">
           {{ item.name }}

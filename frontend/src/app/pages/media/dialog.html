@@ -3,7 +3,7 @@
   <div class="widget p-md clearfix">
     <form [formGroup]="form" (submit) = "saveForm()">
       <div class="form-group">
-        <label for="File">Upload File</label>
+        <label for="File">Upload File *</label>
         <input (change)="handleFileInput($event.target.files)" type="file" accept="video/*,image/*" formControlName="file" class="form-control" id="File">
       </div>
       <div class="form-group text-right">

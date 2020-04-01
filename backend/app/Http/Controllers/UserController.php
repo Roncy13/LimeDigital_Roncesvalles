@@ -36,7 +36,9 @@ class UserController extends Controller {
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
             $token = $user->createToken('MyApp')->accessToken; 
-            return $this->response($token, "Your Login is Successfull...!");
+            $response = array("token" => $token, "user" => $user);
+            
+            return $this->response($response, "Your Login is Successfull...!");
         } 
         else { 
             return response()->json(['message'=>'Incorrect Credentials...!'], StatusCodes::NOT_FOUND); 

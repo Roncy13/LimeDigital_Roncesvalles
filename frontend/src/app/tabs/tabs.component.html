@@ -39,3 +39,6 @@
     </div><!-- .menubar-scroll -->
   </aside>
 </ng-template>
+<div *ngIf="name !== null" class = "col-lg-12">
+  <h2 class = "mt-2">Hi {{ name | titlecase }}</h2>
+</div>

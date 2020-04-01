@@ -179,7 +179,7 @@ export class PostDialog {
     
     this.form = this.fb.group({
       title: [this.data.form.title || "", [Validators.required, Validators.maxLength(225)]],
-      description: [this.data.form.title || "", [Validators.required, Validators.maxLength(225)]],
+      description: [this.data.form.description || "", Validators.required],
       category_id: [this.data.form.category_id || "", Validators.required],
       media: [medias, Validators.required]
     });
