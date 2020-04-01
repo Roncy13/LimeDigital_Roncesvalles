@@ -11,7 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
 
   public showMenu = false;
   constructor(
@@ -25,6 +25,10 @@ export class HeaderComponent implements OnInit {
     this.showMenu = IsLoggedIn();
   }
 
+  ngOnChanges() {
+    this.showMenu = IsLoggedIn();
+  }
+
   isLogin() {
     this.showMenu = IsLoggedIn();
   }
@@ -32,8 +36,8 @@ export class HeaderComponent implements OnInit {
   signOut() {
     localStorage.clear();
     this.toastr.info("You have been logout...!");
-
-    DelayRequest(() => location.pathname = '/post');
+    this.showMenu = IsLoggedIn();
+    this.router.navigate(['/']);
   }
 
   signIn() {
@@ -47,7 +51,7 @@ export class HeaderComponent implements OnInit {
       if (result.value) {
         const username = (document.getElementById("username") as any).value,
           password = (document.getElementById("password") as any).value;
-      
+        
         if (username === "" || password === "") {
           this.signIn();
           this.toastr.warning("Missing username / password...!");
@@ -73,8 +77,8 @@ export class HeaderComponent implements OnInit {
         this.toastr.success(message);
         localStorage.setItem(token, data.token);
         localStorage.setItem(user, JSON.stringify(data.user));
-        setTimeout(() =>location.replace('/post'),1000);
-        
+        this.showMenu = IsLoggedIn();
+        this.router.navigate(['post'])
       })
       .catch(this.headerSrv.checkError)
       .finally(this.headerSrv.finally)
