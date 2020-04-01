@@ -33,7 +33,10 @@ export class TabsComponent implements OnInit, OnChanges {
   setUsername() {
     //this.name = JSON.parse(localStorage.getItem(user)).name as any || null;
     const info = JSON.parse(localStorage.getItem(user));
-    this.name = info.name || null;
+
+    if (info) {
+      this.name = info.name || null;
+    }
   }
 
   checkStatus() {

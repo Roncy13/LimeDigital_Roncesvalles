@@ -30,10 +30,10 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut() {
-    localStorage.removeItem(token);
+    localStorage.clear();
     this.toastr.info("You have been logout...!");
 
-    DelayRequest(() => location.replace("/"));
+    DelayRequest(() => location.pathname = '/post');
   }
 
   signIn() {
@@ -73,7 +73,6 @@ export class HeaderComponent implements OnInit {
         this.toastr.success(message);
         localStorage.setItem(token, data.token);
         localStorage.setItem(user, JSON.stringify(data.user));
-        //console.log(data.user);
         setTimeout(() =>location.replace('/post'),1000);
         
       })
