@@ -41,11 +41,12 @@ class PostService
         $result = $user->post()->create($post);
 
         if (isset($payload["media"]) && count($payload["media"]) > 0) {
-            $medias = ($this->mediaSrv->findByIds($payload["media"]))->toArray();
-            $fetchPost = $this->findById($result["id"]);
-            $records = $fetchPost->postMedia()->createMany($medias);
+            $medias = ($payload["media"]);
+            $post->postMedia()->delete();
 
-            return ["post" => $result, "media" => $medias];
+            Log::info($medias);
+            $records = $post->postMedia()->createMany($medias);
+            return ["post" => $post, "media" => $medias];
         }
 
         return $result;
