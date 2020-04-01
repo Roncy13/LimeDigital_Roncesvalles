@@ -1,5 +1,5 @@
 <div class="col-md-12 col-sm-12" style = "margin-top: 10px;">
-  <div class="widget p-md clearfix">
+  <div class="widget p-md clearfix" *ngIf="title">
     <div id="brief-text row">
       <div class = "col-lg-12">
         <h2 class="section-heading animated">{{ title | titlecase }}</h2>
@@ -18,4 +18,12 @@
       </div>
     </div><!-- #brief-text -->
   </div><!-- .widget -->
+  <div *ngIf="!title">
+    <div id="brief-text row">
+      <div class = "col-lg-12">
+        <h2 class="section-heading animated">Post Not Found...!</h2>
+        <a [routerLink]="['/']">Go Back To The Index Page</a>
+      </div>
+    </div><!-- #brief-text -->
+  </div>
 </div>

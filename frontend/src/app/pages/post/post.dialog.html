@@ -35,7 +35,7 @@
       </div>
 
       <div class="form-group">
-        <div class = "w-100 d-flex text-right mb-2">
+        <div class = "w-100 d-flex justify-content-end mb-2">
           <label for="select_media">Selected Media/s *</label>
         </div>
       </div>
@@ -47,7 +47,7 @@
         </div>
       </div>
       
-      <div class="form-group text-right">
+      <div class="form-group text-right mt-2">
         <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{ saveButton }}</button>
         <button type="button" class="btn btn-success add-new ml-2" (click)="onNoClick()">Close</button>
       </div>

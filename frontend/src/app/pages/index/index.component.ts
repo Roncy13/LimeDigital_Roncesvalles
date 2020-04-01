@@ -6,6 +6,7 @@ import { IsLoggedIn } from '../../utitlities/constants';
 import { MatDialog } from '@angular/material';
 import { environment } from '../../../environments/environment';
 import { PopUpImageComponent } from '../../utitlities/dialog/pop-up-image.component';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'app-index',
@@ -15,19 +16,21 @@ import { PopUpImageComponent } from '../../utitlities/dialog/pop-up-image.compon
 export class IndexComponent implements OnInit {
 
   posts: any = {};
-  title = "Hi this is the Index Page of the CMS";
-  body = `<p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo sit non sunt, a numquam reiciendis expedita possimus quisquam ipsam veritatis doloribus voluptas illum, nostrum perspiciatis laudantium minima obcaecati maxime laborum.</p>`;
+  title = "";
+  body = "";
   category = "";
   media = [];
+  showPost = true;
   constructor(
     private service: IndexSrvice, 
     private route: ActivatedRoute, 
     public dialog: MatDialog,
-    private router: Router) {}
+    private router: Router) { }
 
   ngOnInit() {
 
     const showMenu = IsLoggedIn();
+    this.setData();
     
     if(!showMenu) {
       setTimeout(() => {
@@ -44,15 +47,31 @@ export class IndexComponent implements OnInit {
           result
             .then(row => {
               this.posts = row['data'] as any;
-              this.title = this.posts.title;
-              this.body = this.posts.description
-              this.media = this.posts.post_media;
-              this.category = this.posts.category.description;
+              const { title, description, post_media, category} = this.posts;
+              this.title = title;
+              this.body = description
+              this.media = post_media;
+              this.category = category.description;
+              this.showPost = !isEmpty(row['data']);
+
+              if (!this.showPost) {
+                this.setData();
+              }
             })
             .finally(() => {Swal.close()});
+          } else {
+            this.showPost = true;
+            this.setData();
           }
       })
     }
+  }
+
+  setData() {
+    this.title = "Hi this is the Index Page of the CMS";
+    this.body = `<p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo sit non sunt, a numquam reiciendis expedita possimus quisquam ipsam veritatis doloribus voluptas illum, nostrum perspiciatis laudantium minima obcaecati maxime laborum.</p>`;
+    this.category = "";
+    this.media = [];
   }
 
   view(media) {
