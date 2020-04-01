@@ -146,6 +146,7 @@ export class PostDialog {
     this.change.subscribe(row => {
       if (row) {
         this.medias = [...this.medias, ...row] as [];
+        console.log(this.medias);
         this.form.patchValue({
           media: this.medias
         });
@@ -166,14 +167,14 @@ export class PostDialog {
   save(payload, form) {
     const result = !this.checkForm() ? this.service.create(payload).toPromise() : this.service.update(payload, form.id).toPromise();
 
-      result
-        .then(({message}) => {
-          this.onNoClick();
-          this.toast.success(message);
-          this.data.change.next(true);
-        })
-        .catch(this.service.checkError)
-        .finally(this.service.finally);
+    result
+      .then(({message}) => {
+        this.onNoClick();
+        this.toast.success(message);
+        this.data.change.next(true);
+      })
+      .catch(this.service.checkError)
+      .finally(this.service.finally);
   }
   
   setForm() {
@@ -196,9 +197,8 @@ export class PostDialog {
   saveForm() {
     const { value } = this.form;
 
-    value.media = value.media.map(row => row.id);
+    value.media = value.media.map(({ name, path, type }) => ({ name, path, type}));
 
-    console.log(value);
     DelayRequest(() => this.save(value, this.data.form));
   }
 

@@ -4,9 +4,10 @@ namespace App\Services;
 
 use App\User;
 use App\Models\Post;
-use App\Services\MediaService;
-use App\Models\PostMedia;
 use App\Models\Category;
+use App\Models\PostMedia;
+use App\Services\MediaService;
+use Illuminate\Support\Facades\Log;
 
 class PostService
 {
@@ -58,10 +59,11 @@ class PostService
         $post->save();
 
         if (isset($payload["media"]) && count($payload["media"]) > 0) {
-            $medias = ($this->mediaSrv->findByIds($payload["media"]))->toArray();
+            $medias = ($payload["media"]);
             $post->postMedia()->delete();
+
+            Log::info($medias);
             $records = $post->postMedia()->createMany($medias);
-            
             return ["post" => $post, "media" => $medias];
         }
 

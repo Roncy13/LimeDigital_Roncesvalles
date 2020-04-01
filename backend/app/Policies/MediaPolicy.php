@@ -23,6 +23,7 @@ class MediaPolicy
 
     private function isMediaOwndByUsr($user, $categoryId) {
         $record = $this->service->findById($categoryId);
+
         return $record->user_id === $user->id;
     }
 
