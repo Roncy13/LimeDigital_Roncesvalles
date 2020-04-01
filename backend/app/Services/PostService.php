@@ -6,6 +6,8 @@ use App\User;
 use App\Models\Post;
 use App\Services\MediaService;
 use App\Models\PostMedia;
+use App\Models\Category;
+
 class PostService
 {
     private $mediaSrv;
@@ -88,6 +90,6 @@ class PostService
     public function retrieve($id) {
         $post = Post::find($id);
 
-        return $post ? $post->load('postMedia') : (object)[];
+        return $post ? $post->load(['postMedia', 'category']) : (object)[];
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Category\CategoryCreate;
 
 class CategoryController extends Controller
 {
@@ -16,7 +17,7 @@ class CategoryController extends Controller
         $this->service = $service;
     }
 
-    public function create(Request $request) {
+    public function create(CategoryCreate $request) {
         $payload = $request->all();
         $result = $this->service->create($payload, Auth::user()->id);
 
@@ -30,7 +31,7 @@ class CategoryController extends Controller
         return $this->response($result, "List of your Categories...!"); 
     }
 
-    public function update(Request $request, $id) {
+    public function update(CategoryCreate $request, $id) {
         $payload = $request->all();
         $category = $this->setCategory($id);
         $this->authorize("update", $category);

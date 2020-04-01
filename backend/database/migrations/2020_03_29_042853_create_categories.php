@@ -18,7 +18,7 @@ class CreateCategories extends Migration
             $table->string('description');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unique('description', 'user_id');
+            // $table->unique('description', 'user_id');
             $table->timestamps();
         });
     }
