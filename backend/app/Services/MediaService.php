@@ -28,6 +28,7 @@ class MediaService
         $media->path = $path;
         $media->name = $name;
         $media->user_id = $user_id;
+        $media->type = $type;
 
         return $media->save();
     }

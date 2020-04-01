@@ -42,8 +42,8 @@
       <div class="form-group">
         <div class = "w-100 d-flex justify-content-end mb-2" *ngFor="let item of medias; let i = index">
           {{ item.name }}
-          <button id="selected_media_{{item.id}}_view" class = "btn btn-md btn-primary ml-2" (click)="view(item)">View</button>  
-          <button id="selected_media_{{item.id}}_edit" class = "btn btn-md btn-danger ml-2" (click)="deleteItem(item, i)">Delete</button>  
+          <button id="selected_media_{{item.id}}_view" type = "button" class = "btn btn-md btn-primary ml-2" (click)="view(item)">View</button>  
+          <button id="selected_media_{{item.id}}_edit" type = "button" class = "btn btn-md btn-danger ml-2" (click)="deleteItem(item, i)">Delete</button>  
         </div>
       </div>
       

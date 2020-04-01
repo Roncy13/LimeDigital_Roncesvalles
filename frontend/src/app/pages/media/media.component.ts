@@ -84,7 +84,6 @@ export class MediaComponent implements OnInit {
   showImage(media) {
     const link = `${environment.media}${media.path}`;
     this.dialog.open(PopUpImageComponent, {
-      width: "80%",
       data: {
         link,
         type: media.type
@@ -145,8 +144,6 @@ export class MediaDialog {
     const { type } = this.fileToUpload;
     let formData = new FormData();
     formData.append(type.includes('image/') ? 'photo' : 'video', this.fileToUpload);
-
-    console.log(formData.getAll('photo'));
     DelayRequest(() => this.save(formData, this.data.form));
   }
 

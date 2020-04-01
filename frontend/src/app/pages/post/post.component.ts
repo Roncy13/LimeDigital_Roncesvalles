@@ -230,8 +230,6 @@ export class PostDialog {
     const link = `${environment.media}${item.path}`;
     
     this.dialog.open(PopUpImageComponent, {
-      width: "80%",
-      height: "100%",
       data: {
         link,
         type: item.type
@@ -316,9 +314,7 @@ export class MediaList implements OnInit {
       const link = `${environment.media}${item.path}`;
     
       this.dialog.open(PopUpImageComponent, {
-        width: "80%",
-        height: "100%",
-        data: {
+       data: {
           link,
           type: item.type
         }
