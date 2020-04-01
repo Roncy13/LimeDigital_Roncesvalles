@@ -44,11 +44,12 @@ class MediaController extends Controller
     public function update(MediaCreate $request, $id) {
         $user_id = Auth::user()->id;
         $media = $this->setMedia($id, $user_id);
-
+        
         $this->authorize("update", $media);
 
         $file = $request->file('photo') ? $request->file('photo') : $request->file('video');
-        $result = $this->service->update($file, $id, $user_id);
+        $type = $request->file('photo') ? 'photo' : 'video';
+        $result = $this->service->update($file, $id, $user_id, $type);
 
         return $this->response($result, "Media has been updated Successfully...!");    
     }

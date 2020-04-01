@@ -12,3 +12,7 @@ h1 {
     margin: 0.67em 0 !important;
     color: black !important
  }
+
+ .cdk-overlay-container {
+    z-index: 9999 !important;
+  }

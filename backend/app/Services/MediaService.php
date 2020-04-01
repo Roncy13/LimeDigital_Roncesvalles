@@ -19,9 +19,10 @@ class MediaService
         return $user->media()->create($payload);
     }
 
-    public function update($file, $id, $user_id) { 
+    public function update($file, $id, $user_id, $type) { 
         $name = $file->getClientOriginalName();
-        $path = $file->store($user_id);
+        $path = Storage::put("public/{$user_id}/{$type}", $file);
+        $path = str_replace("public/", "storage/", $path);
         
         $media = Media::find($id);
         $media->path = $path;

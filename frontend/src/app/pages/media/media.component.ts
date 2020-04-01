@@ -85,7 +85,6 @@ export class MediaComponent implements OnInit {
     const link = `${environment.media}${media.path}`;
     this.dialog.open(PopUpImageComponent, {
       width: "80%",
-      height: "100%",
       data: {
         link,
         type: media.type
