@@ -19,8 +19,8 @@ export const YesNo = Swal.mixin({
 });
 
 export enum BUTTON {
-  Add = 'Add',
-  Edit = 'Edit',
+  Add = 'Save',
+  Edit = 'Update',
 }
 
 export const DelayRequest = (fn : Function) => 
