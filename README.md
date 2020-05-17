@@ -1,7 +1,3 @@
-# LimeDigital_Roncesvalles
-
-Laravel Exam For LimeDigital.
-
 TechStach
 
 1. Laravel
