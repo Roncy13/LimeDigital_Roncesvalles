@@ -26,7 +26,7 @@
     "ag-grid-community": "^23.0.2",
     "axios": "^0.19.2",
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "ngx-toastr": "^10.0.4",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.3",
